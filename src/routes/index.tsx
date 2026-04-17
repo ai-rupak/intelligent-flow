@@ -1,26 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Hero } from "@/components/sections/Hero";
+import { MarqueeStrip } from "@/components/sections/MarqueeStrip";
+import { WhoWeAre } from "@/components/sections/WhoWeAre";
+import { Services } from "@/components/sections/Services";
+import { NuboFeature } from "@/components/sections/NuboFeature";
+import { CaseStudies } from "@/components/sections/CaseStudies";
+import { Stats } from "@/components/sections/Stats";
+import { Clients } from "@/components/sections/Clients";
+import { CTAStrip } from "@/components/sections/CTAStrip";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "CentricaSoft — Intelligence, Engineered." },
+      {
+        name: "description",
+        content:
+          "AI Agents, GenAI platforms, and enterprise data infrastructure that scale without limits. 100+ projects delivered across the US and India.",
+      },
+      { property: "og:title", content: "CentricaSoft — Intelligence, Engineered." },
+      {
+        property: "og:description",
+        content:
+          "AI Agents, GenAI platforms, and enterprise data infrastructure that scale without limits.",
+      },
+    ],
+  }),
+  component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function HomePage() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Hero />
+      <MarqueeStrip />
+      <WhoWeAre />
+      <Services />
+      <NuboFeature />
+      <CaseStudies />
+      <Stats />
+      <Clients />
+      <CTAStrip />
+    </>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
