@@ -9,38 +9,206 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WhatWeDoGenaiChatbotsRouteImport } from './routes/what-we-do.genai-chatbots'
+import { Route as WhatWeDoDataEngineeringRouteImport } from './routes/what-we-do.data-engineering'
+import { Route as WhatWeDoDataAnalyticsRouteImport } from './routes/what-we-do.data-analytics'
+import { Route as WhatWeDoAgenticAiRouteImport } from './routes/what-we-do.agentic-ai'
+import { Route as ProductsNuboRouteImport } from './routes/products.nubo'
+import { Route as CompanyPartnersRouteImport } from './routes/company.partners'
+import { Route as CompanyClientsRouteImport } from './routes/company.clients'
+import { Route as CompanyAboutRouteImport } from './routes/company.about'
 
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WhatWeDoGenaiChatbotsRoute = WhatWeDoGenaiChatbotsRouteImport.update({
+  id: '/what-we-do/genai-chatbots',
+  path: '/what-we-do/genai-chatbots',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhatWeDoDataEngineeringRoute = WhatWeDoDataEngineeringRouteImport.update({
+  id: '/what-we-do/data-engineering',
+  path: '/what-we-do/data-engineering',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhatWeDoDataAnalyticsRoute = WhatWeDoDataAnalyticsRouteImport.update({
+  id: '/what-we-do/data-analytics',
+  path: '/what-we-do/data-analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhatWeDoAgenticAiRoute = WhatWeDoAgenticAiRouteImport.update({
+  id: '/what-we-do/agentic-ai',
+  path: '/what-we-do/agentic-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsNuboRoute = ProductsNuboRouteImport.update({
+  id: '/products/nubo',
+  path: '/products/nubo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyPartnersRoute = CompanyPartnersRouteImport.update({
+  id: '/company/partners',
+  path: '/company/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyClientsRoute = CompanyClientsRouteImport.update({
+  id: '/company/clients',
+  path: '/company/clients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyAboutRoute = CompanyAboutRouteImport.update({
+  id: '/company/about',
+  path: '/company/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
+  '/insights': typeof InsightsRoute
+  '/company/about': typeof CompanyAboutRoute
+  '/company/clients': typeof CompanyClientsRoute
+  '/company/partners': typeof CompanyPartnersRoute
+  '/products/nubo': typeof ProductsNuboRoute
+  '/what-we-do/agentic-ai': typeof WhatWeDoAgenticAiRoute
+  '/what-we-do/data-analytics': typeof WhatWeDoDataAnalyticsRoute
+  '/what-we-do/data-engineering': typeof WhatWeDoDataEngineeringRoute
+  '/what-we-do/genai-chatbots': typeof WhatWeDoGenaiChatbotsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
+  '/insights': typeof InsightsRoute
+  '/company/about': typeof CompanyAboutRoute
+  '/company/clients': typeof CompanyClientsRoute
+  '/company/partners': typeof CompanyPartnersRoute
+  '/products/nubo': typeof ProductsNuboRoute
+  '/what-we-do/agentic-ai': typeof WhatWeDoAgenticAiRoute
+  '/what-we-do/data-analytics': typeof WhatWeDoDataAnalyticsRoute
+  '/what-we-do/data-engineering': typeof WhatWeDoDataEngineeringRoute
+  '/what-we-do/genai-chatbots': typeof WhatWeDoGenaiChatbotsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
+  '/insights': typeof InsightsRoute
+  '/company/about': typeof CompanyAboutRoute
+  '/company/clients': typeof CompanyClientsRoute
+  '/company/partners': typeof CompanyPartnersRoute
+  '/products/nubo': typeof ProductsNuboRoute
+  '/what-we-do/agentic-ai': typeof WhatWeDoAgenticAiRoute
+  '/what-we-do/data-analytics': typeof WhatWeDoDataAnalyticsRoute
+  '/what-we-do/data-engineering': typeof WhatWeDoDataEngineeringRoute
+  '/what-we-do/genai-chatbots': typeof WhatWeDoGenaiChatbotsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/careers'
+    | '/contact'
+    | '/insights'
+    | '/company/about'
+    | '/company/clients'
+    | '/company/partners'
+    | '/products/nubo'
+    | '/what-we-do/agentic-ai'
+    | '/what-we-do/data-analytics'
+    | '/what-we-do/data-engineering'
+    | '/what-we-do/genai-chatbots'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/careers'
+    | '/contact'
+    | '/insights'
+    | '/company/about'
+    | '/company/clients'
+    | '/company/partners'
+    | '/products/nubo'
+    | '/what-we-do/agentic-ai'
+    | '/what-we-do/data-analytics'
+    | '/what-we-do/data-engineering'
+    | '/what-we-do/genai-chatbots'
+  id:
+    | '__root__'
+    | '/'
+    | '/careers'
+    | '/contact'
+    | '/insights'
+    | '/company/about'
+    | '/company/clients'
+    | '/company/partners'
+    | '/products/nubo'
+    | '/what-we-do/agentic-ai'
+    | '/what-we-do/data-analytics'
+    | '/what-we-do/data-engineering'
+    | '/what-we-do/genai-chatbots'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CareersRoute: typeof CareersRoute
+  ContactRoute: typeof ContactRoute
+  InsightsRoute: typeof InsightsRoute
+  CompanyAboutRoute: typeof CompanyAboutRoute
+  CompanyClientsRoute: typeof CompanyClientsRoute
+  CompanyPartnersRoute: typeof CompanyPartnersRoute
+  ProductsNuboRoute: typeof ProductsNuboRoute
+  WhatWeDoAgenticAiRoute: typeof WhatWeDoAgenticAiRoute
+  WhatWeDoDataAnalyticsRoute: typeof WhatWeDoDataAnalyticsRoute
+  WhatWeDoDataEngineeringRoute: typeof WhatWeDoDataEngineeringRoute
+  WhatWeDoGenaiChatbotsRoute: typeof WhatWeDoGenaiChatbotsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +216,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/what-we-do/genai-chatbots': {
+      id: '/what-we-do/genai-chatbots'
+      path: '/what-we-do/genai-chatbots'
+      fullPath: '/what-we-do/genai-chatbots'
+      preLoaderRoute: typeof WhatWeDoGenaiChatbotsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/what-we-do/data-engineering': {
+      id: '/what-we-do/data-engineering'
+      path: '/what-we-do/data-engineering'
+      fullPath: '/what-we-do/data-engineering'
+      preLoaderRoute: typeof WhatWeDoDataEngineeringRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/what-we-do/data-analytics': {
+      id: '/what-we-do/data-analytics'
+      path: '/what-we-do/data-analytics'
+      fullPath: '/what-we-do/data-analytics'
+      preLoaderRoute: typeof WhatWeDoDataAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/what-we-do/agentic-ai': {
+      id: '/what-we-do/agentic-ai'
+      path: '/what-we-do/agentic-ai'
+      fullPath: '/what-we-do/agentic-ai'
+      preLoaderRoute: typeof WhatWeDoAgenticAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/nubo': {
+      id: '/products/nubo'
+      path: '/products/nubo'
+      fullPath: '/products/nubo'
+      preLoaderRoute: typeof ProductsNuboRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/partners': {
+      id: '/company/partners'
+      path: '/company/partners'
+      fullPath: '/company/partners'
+      preLoaderRoute: typeof CompanyPartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/clients': {
+      id: '/company/clients'
+      path: '/company/clients'
+      fullPath: '/company/clients'
+      preLoaderRoute: typeof CompanyClientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/about': {
+      id: '/company/about'
+      path: '/company/about'
+      fullPath: '/company/about'
+      preLoaderRoute: typeof CompanyAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CareersRoute: CareersRoute,
+  ContactRoute: ContactRoute,
+  InsightsRoute: InsightsRoute,
+  CompanyAboutRoute: CompanyAboutRoute,
+  CompanyClientsRoute: CompanyClientsRoute,
+  CompanyPartnersRoute: CompanyPartnersRoute,
+  ProductsNuboRoute: ProductsNuboRoute,
+  WhatWeDoAgenticAiRoute: WhatWeDoAgenticAiRoute,
+  WhatWeDoDataAnalyticsRoute: WhatWeDoDataAnalyticsRoute,
+  WhatWeDoDataEngineeringRoute: WhatWeDoDataEngineeringRoute,
+  WhatWeDoGenaiChatbotsRoute: WhatWeDoGenaiChatbotsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
