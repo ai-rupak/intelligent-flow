@@ -2,9 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Zap, Search, Globe2, Handshake } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
-import { SectionLabel } from "@/components/sections/PageHero" /* re-export safety */ === undefined as never as any;
-// (intentional unused-style shim to satisfy bundler if SectionLabel re-exported elsewhere)
-import { SectionLabel as _SL } from "@/components/ui/SectionLabel";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Stats } from "@/components/sections/Stats";
 import { CTAStrip } from "@/components/sections/CTAStrip";
 import { ScrollCounter } from "@/components/ui/ScrollCounter";
