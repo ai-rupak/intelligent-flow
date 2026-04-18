@@ -81,7 +81,7 @@ function AboutPage() {
       {/* Mission */}
       <section className="section-y bg-[var(--surface-2)]">
         <div className="container-x">
-          <_SL number="— 01">Mission</_SL>
+          <SectionLabel number="— 01">Mission</SectionLabel>
           <div className="mt-12 grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-start">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
@@ -126,7 +126,7 @@ function AboutPage() {
       {/* Values */}
       <section className="section-y">
         <div className="container-x">
-          <_SL number="— 02">Values</_SL>
+          <SectionLabel number="— 02">Values</SectionLabel>
           <h2 className="mt-6 font-display text-[clamp(36px,5vw,56px)] leading-[1.05] text-[var(--ink)] max-w-[700px]">
             Four operating principles.
           </h2>
@@ -163,7 +163,7 @@ function AboutPage() {
       {/* Global Presence */}
       <section className="section-y bg-[var(--surface-2)]">
         <div className="container-x">
-          <_SL number="— 03">Global Presence</_SL>
+          <SectionLabel number="— 03">Global Presence</SectionLabel>
           <h2 className="mt-6 font-display text-[clamp(36px,5vw,56px)] leading-[1.05] text-[var(--ink)] max-w-[700px]">
             Two offices. <span className="text-gradient-brand">Twenty-four hours.</span>
           </h2>
@@ -226,7 +226,7 @@ function AboutPage() {
       {/* Team mini */}
       <section className="section-y">
         <div className="container-x">
-          <_SL number="— 04">The Team</_SL>
+          <SectionLabel number="— 04">The Team</SectionLabel>
           <div className="mt-12 grid lg:grid-cols-[1fr_auto] gap-12 items-end">
             <h2 className="font-display text-[clamp(36px,5vw,56px)] leading-[1.05] text-[var(--ink)] max-w-[700px]">
               Engineers, researchers, operators.
