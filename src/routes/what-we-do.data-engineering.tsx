@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PagePlaceholder } from "@/components/sections/PagePlaceholder";
+import { ServicePage } from "@/components/sections/ServicePage";
+import { SERVICE_CONTENT } from "@/lib/services-data";
 
 export const Route = createFileRoute("/what-we-do/data-engineering")({
   head: () => ({
@@ -8,21 +9,14 @@ export const Route = createFileRoute("/what-we-do/data-engineering")({
       {
         name: "description",
         content:
-          "Cloud-native pipelines, lakehouse architectures, and streaming ingestion at petabyte scale.",
+          "Cloud-native pipelines at petabyte scale. Streaming ingestion, lakehouse architectures, and orchestration.",
       },
-      { property: "og:title", content: "Data Engineering & Pipelines — CentricaSoft" },
+      { property: "og:title", content: "Data Engineering at Petabyte Scale — CentricaSoft" },
       {
         property: "og:description",
-        content: "Petabyte-scale ingestion, transformation, and serving on modern lakehouses.",
+        content: "Lakehouse architectures and orchestration that handle 10TB+ daily.",
       },
     ],
   }),
-  component: () => (
-    <PagePlaceholder
-      pill="03 · Services · Data"
-      title="Data Engineering at Petabyte Scale"
-      highlight="Petabyte"
-      subtitle="Streaming ingestion, lakehouse architectures, and orchestration that handle 10TB+ daily — built on Spark, Databricks, Snowflake."
-    />
-  ),
+  component: () => <ServicePage content={SERVICE_CONTENT["data-engineering"]} />,
 });

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PagePlaceholder } from "@/components/sections/PagePlaceholder";
+import { ServicePage } from "@/components/sections/ServicePage";
+import { SERVICE_CONTENT } from "@/lib/services-data";
 
 export const Route = createFileRoute("/what-we-do/agentic-ai")({
   head: () => ({
@@ -17,12 +18,5 @@ export const Route = createFileRoute("/what-we-do/agentic-ai")({
       },
     ],
   }),
-  component: () => (
-    <PagePlaceholder
-      pill="01 · Services · AI"
-      title="Agentic AI & Autonomous Systems"
-      highlight="Autonomous"
-      subtitle="AI that doesn't just answer — it acts, adapts, and delivers outcomes. Multi-agent architectures with tool use, memory, and reflection."
-    />
-  ),
+  component: () => <ServicePage content={SERVICE_CONTENT["agentic-ai"]} />,
 });

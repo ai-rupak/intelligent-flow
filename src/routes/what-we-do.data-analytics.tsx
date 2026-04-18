@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PagePlaceholder } from "@/components/sections/PagePlaceholder";
+import { ServicePage } from "@/components/sections/ServicePage";
+import { SERVICE_CONTENT } from "@/lib/services-data";
 
 export const Route = createFileRoute("/what-we-do/data-analytics")({
   head: () => ({
@@ -7,21 +8,15 @@ export const Route = createFileRoute("/what-we-do/data-analytics")({
       { title: "Data Analytics & Insights — CentricaSoft" },
       {
         name: "description",
-        content: "Self-serve analytics, executive dashboards, and predictive models that move metrics that matter.",
+        content:
+          "Self-serve analytics, executive dashboards, and predictive models that turn raw data into decisions.",
       },
-      { property: "og:title", content: "Data Analytics & Insights — CentricaSoft" },
+      { property: "og:title", content: "Data Analytics That Move Metrics — CentricaSoft" },
       {
         property: "og:description",
-        content: "Turn raw data into decisions with modern BI and predictive models.",
+        content: "Dashboards, semantic layers, and predictive models — operationalized.",
       },
     ],
   }),
-  component: () => (
-    <PagePlaceholder
-      pill="04 · Services · Analytics"
-      title="Analytics that move the metric."
-      highlight="metric."
-      subtitle="Self-serve dashboards, executive cockpits, and predictive models grounded in your real operational data."
-    />
-  ),
+  component: () => <ServicePage content={SERVICE_CONTENT["data-analytics"]} />,
 });
