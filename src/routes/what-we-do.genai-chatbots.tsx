@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PagePlaceholder } from "@/components/sections/PagePlaceholder";
+import { ServicePage } from "@/components/sections/ServicePage";
+import { SERVICE_CONTENT } from "@/lib/services-data";
 
 export const Route = createFileRoute("/what-we-do/genai-chatbots")({
   head: () => ({
@@ -8,21 +9,14 @@ export const Route = createFileRoute("/what-we-do/genai-chatbots")({
       {
         name: "description",
         content:
-          "Enterprise chatbots powered by RAG, prompt engineering, and seamless integration with your systems of record.",
+          "Enterprise chatbots powered by RAG, prompt engineering, and seamless integration. Hallucination-free, citation-backed.",
       },
       { property: "og:title", content: "Generative AI Chatbots — CentricaSoft" },
       {
         property: "og:description",
-        content: "Production-grade chatbots that ground answers in your knowledge base.",
+        content: "RAG, prompt engineering, and guardrails — production-hardened.",
       },
     ],
   }),
-  component: () => (
-    <PagePlaceholder
-      pill="02 · Services · GenAI"
-      title="Generative AI Chatbots"
-      highlight="Chatbots"
-      subtitle="Production-grade conversational AI grounded in your knowledge — RAG, prompt engineering, and enterprise integration in one platform."
-    />
-  ),
+  component: () => <ServicePage content={SERVICE_CONTENT["genai-chatbots"]} />,
 });
