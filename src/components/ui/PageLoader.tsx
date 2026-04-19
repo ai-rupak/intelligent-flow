@@ -13,10 +13,7 @@ export function PageLoader() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const KEY = "cs:intro-shown";
-    if (sessionStorage.getItem(KEY)) return;
     setVisible(true);
-    sessionStorage.setItem(KEY, "1");
     document.documentElement.style.overflow = "hidden";
     const t = window.setTimeout(() => {
       setVisible(false);
