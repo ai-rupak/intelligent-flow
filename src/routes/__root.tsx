@@ -5,6 +5,7 @@ import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import { GrainOverlay } from "@/components/ui/GrainOverlay";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { PageLoader } from "@/components/ui/PageLoader";
 
 function NotFoundComponent() {
   return (
@@ -80,6 +81,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <SmoothScrollProvider>
+      <PageLoader />
       <GrainOverlay />
       <Navbar />
       <main className="min-h-screen">
