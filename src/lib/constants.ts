@@ -53,7 +53,7 @@ export const SERVICES = [
 export const STATS = [
   { value: 100, suffix: "+", label: "Projects Delivered" },
   { value: 50, suffix: "+", label: "Expert Consultants" },
-  { value: 2, suffix: "", label: "Global Offices" },
+  { value: 3, suffix: "", label: "Global Offices" },
 ];
 
 export const CASE_STUDIES = [

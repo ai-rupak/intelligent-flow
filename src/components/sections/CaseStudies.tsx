@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
@@ -36,9 +38,7 @@ export function CaseStudies() {
           <div className="lg:col-span-4 flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <div className="font-mono text-[12px] text-[var(--ink-3)]">
-                <span className="text-[var(--navy)]">
-                  {String(selected + 1).padStart(2, "0")}
-                </span>
+                <span className="text-[var(--navy)]">{String(selected + 1).padStart(2, "0")}</span>
                 {" / "}
                 {String(count).padStart(2, "0")}
               </div>
@@ -92,7 +92,11 @@ export function CaseStudies() {
                     <div className="mt-auto pt-6 flex items-center justify-between border-t border-[var(--border)]">
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-full bg-gradient-brand text-white inline-flex items-center justify-center font-display text-[13px]">
-                          {c.author.split(" ").map((p) => p[0]).join("").slice(0, 2)}
+                          {c.author
+                            .split(" ")
+                            .map((p) => p[0])
+                            .join("")
+                            .slice(0, 2)}
                         </div>
                         <div>
                           <div className="text-[12.5px] text-[var(--ink)] font-medium">

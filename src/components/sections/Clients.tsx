@@ -1,3 +1,5 @@
+"use client";
+
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 const ROW_1 = [

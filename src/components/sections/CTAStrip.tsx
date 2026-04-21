@@ -1,3 +1,5 @@
+"use client";
+
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function CTAStrip() {

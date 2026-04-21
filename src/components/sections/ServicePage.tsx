@@ -1,5 +1,7 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -109,14 +111,12 @@ export function ServicePage({ content }: { content: ServiceContent }) {
 
           <HorizontalCarousel itemCount={content.offerings.length}>
             {content.offerings.map((o, i) => (
-              <div
-                key={i}
-                className="shrink-0 grow-0 px-2"
-                style={{ flex: "0 0 min(420px, 90%)" }}
-              >
+              <div key={i} className="shrink-0 grow-0 px-2" style={{ flex: "0 0 min(420px, 90%)" }}>
                 <HoverTilt max={3}>
                   <div className="h-full rounded-2xl bg-white border border-[var(--border)] p-8 transition-all duration-300 hover:shadow-[0_20px_60px_-20px_rgba(0,32,87,0.18)]">
-                    <div className="text-[var(--sky-bright)] text-[28px] font-display">{o.icon}</div>
+                    <div className="text-[var(--sky-bright)] text-[28px] font-display">
+                      {o.icon}
+                    </div>
                     <h3 className="mt-5 font-heading font-bold text-[20px] text-[var(--ink)] leading-tight">
                       {o.title}
                     </h3>
@@ -280,7 +280,7 @@ export function ServicePage({ content }: { content: ServiceContent }) {
                 <div className="mt-2 text-[13px] text-white/40">{content.caseStudy.client}</div>
               </div>
               <Link
-                to="/insights"
+                href="/insights"
                 className="inline-flex items-center gap-2 text-[14px] text-white border-b border-white/30 pb-1 hover:border-[var(--sky-bright)] transition-colors"
               >
                 Read Case Study <ArrowUpRight className="w-4 h-4" />

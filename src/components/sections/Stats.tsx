@@ -1,10 +1,12 @@
+"use client";
+
 import { ScrollCounter } from "@/components/ui/ScrollCounter";
 
 const STATS = [
   { value: 100, suffix: "+", label: "Projects Delivered" },
   { value: 50, suffix: "+", label: "Expert Consultants" },
   { value: 8, suffix: "", label: "Industries Served" },
-  { value: 2, suffix: "", label: "Global Offices" },
+  { value: 3, suffix: "", label: "Global Offices" },
 ];
 
 export function Stats() {

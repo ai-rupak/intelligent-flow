@@ -1,6 +1,8 @@
+"use client";
+
 import { useRef, type ReactNode, type MouseEvent } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 
 type Props = {
   children: ReactNode;
@@ -51,8 +53,7 @@ export function MagneticButton({
       "bg-gradient-brand-h text-white px-8 h-[52px] text-[15px] shadow-[0_8px_30px_-8px_var(--glow)] hover:shadow-[0_12px_40px_-8px_var(--glow)]",
     ghost:
       "border border-[var(--border-2)] text-[var(--ink)] px-7 h-[52px] text-[15px] hover:bg-[var(--surface-2)]",
-    white:
-      "bg-white text-[var(--navy)] px-8 h-[52px] text-[15px] hover:bg-[var(--surface-2)]",
+    white: "bg-white text-[var(--navy)] px-8 h-[52px] text-[15px] hover:bg-[var(--surface-2)]",
   };
   const cls = `${base} ${variants[variant]} ${className}`;
 
@@ -67,7 +68,7 @@ export function MagneticButton({
       className="inline-block"
     >
       {to ? (
-        <Link to={to} className={cls} onClick={onClick}>
+        <Link href={to} className={cls} onClick={onClick}>
           {children}
         </Link>
       ) : href ? (

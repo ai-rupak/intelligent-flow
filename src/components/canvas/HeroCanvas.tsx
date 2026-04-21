@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 export function HeroCanvas() {
@@ -9,7 +11,7 @@ export function HeroCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let w = 0;
     let h = 0;
     const NODE_COUNT = 70;

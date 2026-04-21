@@ -1,3 +1,5 @@
+"use client";
+
 import { MARQUEE_ITEMS } from "@/lib/constants";
 
 export function MarqueeStrip() {

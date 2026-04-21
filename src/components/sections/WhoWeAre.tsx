@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
@@ -35,13 +37,14 @@ export function WhoWeAre() {
             </p>
             <p>
               We've delivered <span className="text-[var(--navy)] font-medium">100+ projects</span>{" "}
-              for healthcare, finance, logistics, and enterprise teams — pairing 50+ consultants with
-              proprietary platforms like Nubo to move faster than any pure-services shop and deeper
-              than any pure-product vendor.
+              for healthcare, finance, logistics, and enterprise teams — pairing 50+ consultants
+              with proprietary platforms like Nubo to move faster than any pure-services shop and
+              deeper than any pure-product vendor.
             </p>
             <p>
               The work speaks: triage agents that handle clinical workloads, research assistants
-              grounded in petabytes of context, lakehouses that ingest entire businesses in real time.
+              grounded in petabytes of context, lakehouses that ingest entire businesses in real
+              time.
             </p>
           </motion.div>
         </div>

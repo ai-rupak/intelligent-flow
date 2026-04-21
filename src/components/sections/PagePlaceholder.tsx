@@ -1,5 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -81,7 +83,7 @@ export function PagePlaceholder({
                 <MagneticButton to="/contact">
                   Request a Consultation <ArrowRight className="ml-2 w-4 h-4" />
                 </MagneticButton>
-                <Link to="/" className="text-[14px] text-[var(--sky-deep)] font-medium">
+                <Link href="/" className="text-[14px] text-[var(--sky-deep)] font-medium">
                   ← Back to home
                 </Link>
               </div>

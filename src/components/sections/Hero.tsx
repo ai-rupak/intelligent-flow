@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { HeroCanvas } from "@/components/canvas/HeroCanvas";
@@ -51,8 +53,8 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.5 }}
             className="mt-8 text-[18px] text-[var(--ink-2)] leading-[1.7] max-w-[520px]"
           >
-            CentricaSoft builds AI Agents, GenAI platforms, and enterprise data infrastructure
-            that scale without limits — from petabyte pipelines to autonomous decision systems.
+            CentricaSoft builds AI Agents, GenAI platforms, and enterprise data infrastructure that
+            scale without limits — from petabyte pipelines to autonomous decision systems.
           </motion.p>
 
           <motion.div
@@ -114,9 +116,18 @@ export function Hero() {
                 <span className="text-[13px] font-medium text-[var(--ink)]">3 Active</span>
               </div>
               <div className="space-y-2 text-[12px] text-[var(--ink-2)]">
-                <div className="flex justify-between"><span>Triage</span><span className="font-mono text-[var(--ink-3)]">8 done</span></div>
-                <div className="flex justify-between"><span>Research</span><span className="font-mono text-[var(--ink-3)]">4 done</span></div>
-                <div className="flex justify-between"><span>Routing</span><span className="font-mono text-[var(--ink-3)]">2 done</span></div>
+                <div className="flex justify-between">
+                  <span>Triage</span>
+                  <span className="font-mono text-[var(--ink-3)]">8 done</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Research</span>
+                  <span className="font-mono text-[var(--ink-3)]">4 done</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Routing</span>
+                  <span className="font-mono text-[var(--ink-3)]">2 done</span>
+                </div>
               </div>
             </div>
           </motion.div>

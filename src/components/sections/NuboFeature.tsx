@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Database, Plug, Sparkles } from "lucide-react";
@@ -81,11 +83,13 @@ export function NuboFeature() {
             href="/products/nubo"
             className="mt-10 inline-flex items-center gap-1.5 text-[15px] text-gradient-brand font-medium group"
           >
-            <span className="relative">
+            <span className="relative text-[var(--navy)]">
               Explore Nubo
               <span className="absolute left-0 right-0 -bottom-1 h-px bg-[var(--sky-deep)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
             </span>
-            <span aria-hidden className="text-[var(--sky-deep)]">→</span>
+            <span aria-hidden className="text-[var(--sky-deep)]">
+              →
+            </span>
           </a>
         </div>
 

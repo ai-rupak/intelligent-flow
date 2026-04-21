@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import type { HLDSpec } from "@/lib/services-data";
@@ -51,10 +53,7 @@ export function HLDDiagram({ spec }: { spec: HLDSpec }) {
       />
 
       {/* Edges */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ zIndex: 1 }}
-      >
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
         <defs>
           <linearGradient id="hld-edge" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="var(--navy)" />
