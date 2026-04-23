@@ -85,6 +85,14 @@ export function Navbar() {
     };
   }, [mobile]);
 
+  const overDarkHero = pathname === "/products/nubo" && !scrolled && !active;
+  const navItemBase = overDarkHero
+    ? "text-white/78 hover:bg-white/10 hover:text-white"
+    : "text-[var(--ink-2)] hover:bg-[var(--highlight)] hover:text-[var(--navy)]";
+  const navItemActive = overDarkHero
+    ? "bg-white/12 text-white"
+    : "bg-[var(--highlight)] text-[var(--navy)]";
+
   let closeTimer: ReturnType<typeof setTimeout> | null = null;
   const open = (p: Panel) => {
     if (closeTimer) clearTimeout(closeTimer);
@@ -100,12 +108,14 @@ export function Navbar() {
       className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-[400ms] ${
         scrolled || active
           ? "bg-[rgba(247,250,253,0.92)] backdrop-blur-2xl border-b border-[rgba(200,223,240,0.5)]"
-          : "bg-transparent border-b border-transparent"
+          : overDarkHero
+            ? "bg-[rgba(6,16,34,0.28)] backdrop-blur-md border-b border-white/10"
+            : "bg-transparent border-b border-transparent"
       }`}
       onMouseLeave={scheduleClose}
     >
       <div className="container-x flex items-center justify-between h-[72px]">
-        <Logo />
+        <Logo light={overDarkHero} />
 
         <nav className="hidden lg:flex items-center gap-1">
           {NAV_ITEMS.map((item) =>
@@ -115,9 +125,7 @@ export function Navbar() {
                 onMouseEnter={() => open(item.mega as Panel)}
                 onFocus={() => open(item.mega as Panel)}
                 className={`group inline-flex h-10 items-center gap-1.5 rounded-lg px-4 text-[14px] font-medium transition-all duration-150 ${
-                  active === item.mega
-                    ? "bg-[var(--highlight)] text-[var(--navy)]"
-                    : "text-[var(--ink-2)] hover:bg-[var(--highlight)] hover:text-[var(--navy)]"
+                  active === item.mega ? navItemActive : navItemBase
                 }`}
               >
                 <span>{item.label}</span>
@@ -133,9 +141,7 @@ export function Navbar() {
                 href={item.href}
                 onMouseEnter={scheduleClose}
                 className={`inline-flex h-10 items-center rounded-lg px-4 text-[14px] font-medium transition-all duration-150 ${
-                  pathname === item.href
-                    ? "bg-[var(--highlight)] text-[var(--navy)]"
-                    : "text-[var(--ink-2)] hover:bg-[var(--highlight)] hover:text-[var(--navy)]"
+                  pathname === item.href ? navItemActive : navItemBase
                 }`}
               >
                 {item.label}
@@ -151,7 +157,11 @@ export function Navbar() {
           >
             Contact
           </Link> */}
-          <MagneticButton to="/contact" className="!h-10 !px-6 !text-[13px]">
+          <MagneticButton
+            to="/contact"
+            variant={overDarkHero ? "white" : "primary"}
+            className="!h-10 !px-6 !text-[13px]"
+          >
             Request Consultation
           </MagneticButton>
         </div>
@@ -159,9 +169,11 @@ export function Navbar() {
         <button
           onClick={() => setMobile(true)}
           aria-label="Open menu"
-          className="lg:hidden w-10 h-10 inline-flex items-center justify-center rounded-full border border-[var(--border)]"
+          className={`lg:hidden w-10 h-10 inline-flex items-center justify-center rounded-full border ${
+            overDarkHero ? "border-white/20 bg-white/10" : "border-[var(--border)]"
+          }`}
         >
-          <Menu className="w-5 h-5 text-[var(--navy)]" />
+          <Menu className={`w-5 h-5 ${overDarkHero ? "text-white" : "text-[var(--navy)]"}`} />
         </button>
 
         <MegaNav active={active} onClose={scheduleClose} />

@@ -14,13 +14,17 @@ export function Logo({ light = false }: { light?: boolean }) {
         priority
         className="h-8 w-8 rounded-[4px] object-contain transition-transform duration-[600ms] ease-out group-hover:rotate-[8deg]"
       />
-      <span
+      <span className="font-sans text-[18px] font-bold leading-none tracking-[0]">
+        <span className={light ? "text-white" : "text-[#2F62C9]"}>Centrica</span>
+        <span className={light ? "text-[#1EBFFF]" : "text-[#00AEEF]"}>Soft</span>
+      </span>
+       {/* <span
         className={`font-display text-[18px] font-semibold tracking-tight ${
           light ? "text-white" : "text-[var(--navy)]"
         }`}
       >
         CentricaSoft
-      </span>
+      </span> */}
     </Link>
   );
 }

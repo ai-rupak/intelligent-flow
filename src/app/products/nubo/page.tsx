@@ -155,10 +155,10 @@ export default function NuboPage() {
       <section className="relative pt-[160px] pb-32 bg-[var(--navy)] text-white overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-40"
+          className="pointer-events-none absolute inset-0 opacity-80"
           style={{
             background:
-              "radial-gradient(50% 60% at 80% 30%, rgba(30,191,255,0.3), transparent), radial-gradient(40% 50% at 10% 80%, rgba(0,119,182,0.25), transparent)",
+              "radial-gradient(48% 58% at 82% 28%, rgba(30,191,255,0.32), transparent 64%), radial-gradient(36% 44% at 14% 78%, rgba(168,207,230,0.18), transparent 66%), linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 48%, var(--navy-mid) 100%)",
           }}
         />
         <div
@@ -166,7 +166,7 @@ export default function NuboPage() {
           className="pointer-events-none absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(168,207,230,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(168,207,230,0.4) 1px, transparent 1px)",
+              "linear-gradient(rgba(168,207,230,0.42) 1px, transparent 1px), linear-gradient(90deg, rgba(30,191,255,0.24) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
             maskImage: "radial-gradient(ellipse at center, #000 10%, transparent 70%)",
             WebkitMaskImage: "radial-gradient(ellipse at center, #000 10%, transparent 70%)",
@@ -174,7 +174,7 @@ export default function NuboPage() {
         />
         <div className="container-x relative grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/5">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/7">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--sky-bright)] animate-pulse-dot" />
               <span className="label-mono !text-[10px] !text-[var(--sky-bright)]">
                 — Flagship Product · v2.4
@@ -188,7 +188,9 @@ export default function NuboPage() {
             >
               Nubo.
               <br />
-              <span className="text-gradient-brand">The Enterprise AI Brain.</span>
+              <span className="bg-[linear-gradient(90deg,#FFFFFF_0%,var(--sky)_42%,var(--sky-bright)_100%)] bg-clip-text text-transparent">
+                The Enterprise AI Brain.
+              </span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -210,7 +212,7 @@ export default function NuboPage() {
               </MagneticButton>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center gap-2 text-[15px] text-white/70 hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 text-[15px] text-[var(--sky)] hover:text-white transition-colors"
               >
                 See How It Works <ArrowDown className="w-4 h-4" />
               </a>
@@ -228,7 +230,7 @@ export default function NuboPage() {
       </section>
 
       {/* CAPABILITIES — alternating rows */}
-      <section className="section-y" id="how-it-works">
+      <section className="section-y bg-[var(--bg)]" id="how-it-works">
         <div className="container-x">
           <SectionLabel number="— 02">Core Capabilities</SectionLabel>
           <h2 className="mt-6 font-display text-[clamp(36px,5vw,56px)] leading-[1.05] text-[var(--ink)] max-w-[700px]">
@@ -250,7 +252,7 @@ export default function NuboPage() {
                   }`}
                 >
                   <div>
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-brand-h text-white">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-brand-h text-white shadow-[0_18px_40px_-24px_rgba(0,32,87,0.7)]">
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="mt-4 font-mono text-[11px] text-[var(--ink-3)]">
@@ -297,7 +299,7 @@ export default function NuboPage() {
       </section>
 
       {/* USE CASES carousel */}
-      <section className="section-y">
+      <section className="section-y bg-white">
         <div className="container-x">
           <div className="mb-10">
             <SectionLabel number="— 04">Use Cases</SectionLabel>
@@ -309,14 +311,14 @@ export default function NuboPage() {
             {USE_CASES.map((u, i) => (
               <div key={i} className="shrink-0 grow-0 px-2" style={{ flex: "0 0 min(380px, 90%)" }}>
                 <HoverTilt max={3}>
-                  <div className="h-full rounded-2xl bg-white border border-[var(--border)] p-8 transition-all duration-300 hover:shadow-[0_20px_60px_-20px_rgba(0,32,87,0.18)]">
+                  <div className="h-full rounded-2xl bg-white border border-[var(--border)] p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_-28px_rgba(0,32,87,0.22)]">
                     <div className="label-mono !text-[var(--sky-deep)]">{u.industry}</div>
                     <h3 className="mt-4 font-heading font-bold text-[20px] text-[var(--ink)] leading-tight">
                       {u.title}
                     </h3>
                     <p className="mt-3 text-[14px] text-[var(--ink-2)] leading-[1.7]">{u.body}</p>
                     <div className="mt-6 pt-5 border-t border-[var(--border)]">
-                      <div className="font-display text-[18px] text-gradient-brand leading-tight">
+                      <div className="font-display text-[18px] leading-tight text-gradient-brand">
                         {u.metric}
                       </div>
                     </div>
@@ -332,9 +334,10 @@ export default function NuboPage() {
       <section className="py-24 bg-[var(--navy)] text-white relative overflow-hidden">
         <div
           aria-hidden
-          className="absolute inset-0 opacity-25"
+          className="absolute inset-0 opacity-35"
           style={{
-            background: "radial-gradient(50% 70% at 50% 50%, rgba(30,191,255,0.45), transparent)",
+            background:
+              "radial-gradient(42% 70% at 50% 50%, rgba(30,191,255,0.42), transparent 70%), radial-gradient(34% 50% at 16% 32%, rgba(168,207,230,0.18), transparent 72%)",
           }}
         />
         <div className="container-x relative text-center">
