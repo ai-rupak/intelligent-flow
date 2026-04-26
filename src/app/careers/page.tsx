@@ -85,6 +85,11 @@ export default function CareersPage() {
         pill="05 · Careers"
         title="Build the Future with Us."
         highlight="Future"
+        variant="immersive"
+        tone="photo"
+        asideLabel="Culture snapshot"
+        meta={["Engineering craft", "Global teams", "High ownership"]}
+        backgroundImage="https://images.pexels.com/photos/6913217/pexels-photo-6913217.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-6913217.jpg&fm=jpg"
         subtitle="We're hiring engineers, researchers, and operators who want to work on AI that actually matters — in healthcare, finance, logistics, and beyond."
       />
 

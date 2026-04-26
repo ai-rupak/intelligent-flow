@@ -51,29 +51,47 @@ export function NuboChatCard({ compact = false }: { compact?: boolean }) {
 
   return (
     <div
-      className={`relative isolate overflow-hidden rounded-2xl border border-white/12 bg-[linear-gradient(145deg,var(--navy-deep)_0%,var(--navy)_48%,#073f8f_100%)] text-white shadow-[0_34px_90px_-34px_rgba(0,32,87,0.75)] ${
+      className={`relative isolate overflow-hidden text-white ${
         compact ? "h-[420px] w-full" : "h-[420px] w-full max-w-[390px]"
       }`}
+      style={{
+        background: "#001A3D",
+        borderRadius: "20px",
+        border: "1px solid rgba(30,191,255,0.15)",
+        boxShadow: `
+          0 0 0 1px rgba(30,191,255,0.08),
+          0 24px 64px rgba(0,18,52,0.35),
+          0 8px 24px rgba(0,18,52,0.25),
+          inset 0 1px 0 rgba(255,255,255,0.06)
+        `,
+      }}
     >
+      <div
+        aria-hidden
+        className="absolute left-0 right-0 top-0 z-10"
+        style={{
+          height: "2px",
+          background: "linear-gradient(90deg, #002057, #0077B6, #1EBFFF)",
+        }}
+      />
       <div
         aria-hidden
         className="absolute inset-0 -z-10 opacity-40"
         style={{
           background:
-            "radial-gradient(circle at 18% 10%, rgba(30,191,255,0.28), transparent 28%), radial-gradient(circle at 88% 42%, rgba(168,207,230,0.14), transparent 26%)",
+            "radial-gradient(circle at 18% 10%, rgba(30,191,255,0.3), transparent 28%), radial-gradient(circle at 88% 42%, rgba(168,207,230,0.16), transparent 26%), linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(0,119,182,0.1) 100%)",
         }}
       />
+      <div aria-hidden className="grain absolute inset-0 -z-10 opacity-[0.06]" />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.09]"
+        className="absolute inset-0 -z-10 opacity-[0.08]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
         }}
       />
-
-      <div className="h-[3px] bg-[linear-gradient(90deg,var(--sky-bright),#ffffff,var(--sky-deep))]" />
 
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
         <div className="flex min-w-0 items-center gap-3">

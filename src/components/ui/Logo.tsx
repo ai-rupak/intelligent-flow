@@ -18,7 +18,7 @@ export function Logo({ light = false }: { light?: boolean }) {
         <span className={light ? "text-white" : "text-[#2F62C9]"}>Centrica</span>
         <span className={light ? "text-[#1EBFFF]" : "text-[#00AEEF]"}>Soft</span>
       </span>
-       {/* <span
+      {/* <span
         className={`font-display text-[18px] font-semibold tracking-tight ${
           light ? "text-white" : "text-[var(--navy)]"
         }`}

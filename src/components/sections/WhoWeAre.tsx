@@ -37,18 +37,23 @@ export function WhoWeAre() {
             </p>
             <p>
               We've delivered <span className="text-[var(--navy)] font-medium">100+ projects</span>{" "}
-              for healthcare, finance, logistics, and enterprise teams — pairing 50+ consultants
+              for healthcare, finance, logistics, and enterprise teams â€” pairing 50+ consultants
               with proprietary platforms like Nubo to move faster than any pure-services shop and
               deeper than any pure-product vendor.
             </p>
-            <p>
+            {/* <p>
               The work speaks: triage agents that handle clinical workloads, research assistants
               grounded in petabytes of context, lakehouses that ingest entire businesses in real
               time.
-            </p>
+            </p> */}
           </motion.div>
         </div>
       </div>
     </section>
   );
 }
+
+
+
+
+

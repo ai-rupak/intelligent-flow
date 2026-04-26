@@ -30,10 +30,34 @@ const SERVICE_VISUALS: Record<string, { image: string; eyebrow: string }> = {
   },
 };
 
+const SERVICE_ACCENTS: Record<string, { title: string; counter: string; progress: string }> = {
+  "agentic-ai": {
+    title: "#8F7CFF",
+    counter: "#9E8BFF",
+    progress: "#7F5CFF",
+  },
+  "genai-chatbots": {
+    title: "#55E6D7",
+    counter: "#6BF0E3",
+    progress: "#40D7C7",
+  },
+  "data-engineering": {
+    title: "#7DE7FF",
+    counter: "#8DEEFF",
+    progress: "#1EBFFF",
+  },
+  "data-analytics": {
+    title: "#FFB86B",
+    counter: "#FFC98E",
+    progress: "#FF9F43",
+  },
+};
+
 export function Services() {
   const [active, setActive] = useState(0);
   const service = SERVICES[active];
   const visual = SERVICE_VISUALS[service.slug];
+  const accent = SERVICE_ACCENTS[service.slug];
 
   const move = (direction: 1 | -1) => {
     setActive((current) => (current + direction + SERVICES.length) % SERVICES.length);
@@ -80,14 +104,14 @@ export function Services() {
                   className="relative aspect-[1.55] min-h-[220px] bg-cover bg-center sm:min-h-[260px] md:min-h-[300px] lg:min-h-[320px]"
                   style={{ backgroundImage: `url(${visual.image})` }}
                 >
-                  <div className="absolute inset-0 bg-[#001234]/45" />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#001234]/95 via-[#002057]/35 to-[#1EBFFF]/20" />
+                  <div className="absolute inset-0 bg-[#001234]/24" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#001234]/58 via-[#002057]/18 to-[#1EBFFF]/10" />
                   <div
                     aria-hidden
-                    className="absolute inset-0 opacity-30"
+                    className="absolute inset-0 opacity-12"
                     style={{
                       background:
-                        "linear-gradient(120deg, transparent 0 42%, rgba(125,231,255,0.28) 43%, transparent 52%)",
+                        "linear-gradient(120deg, transparent 0 44%, rgba(125,231,255,0.18) 45%, transparent 54%)",
                     }}
                   />
                   <div className="absolute bottom-4 left-4 rounded-md border border-white/15 bg-[#001234]/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70 backdrop-blur-md">
@@ -107,10 +131,13 @@ export function Services() {
                 exit={{ opacity: 0, x: -18 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="font-mono text-[13px] text-[#9A7CFF]">
+                <div className="font-mono text-[13px]" style={{ color: accent.counter }}>
                   {String(active + 1).padStart(2, "0")} / {String(SERVICES.length).padStart(2, "0")}
                 </div>
-                <h3 className="mt-3 max-w-[500px] font-heading text-[clamp(24px,3.4vw,34px)] font-bold leading-[1.1] text-[#9A7CFF]">
+                <h3
+                  className="mt-3 max-w-[500px] font-heading text-[clamp(24px,3.4vw,34px)] font-bold leading-[1.1]"
+                  style={{ color: accent.title }}
+                >
                   {service.title}
                 </h3>
                 <p className="mt-4 max-w-[520px] text-[15px] leading-[1.7] text-white/72 md:text-[16px]">
@@ -165,8 +192,13 @@ export function Services() {
                   onClick={() => setActive(index)}
                   aria-label={`Show ${item.title}`}
                   className={`h-1.5 rounded-full transition-all ${
-                    active === index ? "w-12 bg-[#7F5CFF]" : "w-8 bg-white/20 hover:bg-white/35"
+                    active === index ? "w-12" : "w-8 bg-white/20 hover:bg-white/35"
                   }`}
+                  style={
+                    active === index
+                      ? { backgroundColor: SERVICE_ACCENTS[item.slug].progress }
+                      : undefined
+                  }
                 />
               ))}
             </div>

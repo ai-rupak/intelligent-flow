@@ -85,7 +85,15 @@ export function Navbar() {
     };
   }, [mobile]);
 
-  const overDarkHero = pathname === "/products/nubo" && !scrolled && !active;
+  const overDarkHero =
+    (pathname === "/" ||
+      pathname === "/products/nubo" ||
+      pathname.startsWith("/what-we-do/") ||
+      pathname.startsWith("/company/") ||
+      pathname === "/insights" ||
+      pathname === "/careers") &&
+    !scrolled &&
+    !active;
   const navItemBase = overDarkHero
     ? "text-white/78 hover:bg-white/10 hover:text-white"
     : "text-[var(--ink-2)] hover:bg-[var(--highlight)] hover:text-[var(--navy)]";

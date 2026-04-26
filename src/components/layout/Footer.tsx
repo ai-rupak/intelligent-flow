@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Github, Linkedin, Twitter } from "lucide-react";
-import { SITE } from "@/lib/constants";
+import { OFFICE_LOCATIONS, SITE } from "@/lib/constants";
 import Image from "next/image";
 
 const LINKS = {
@@ -128,16 +128,14 @@ export function Footer() {
               Global Presence
             </p>
             <div className="flex flex-col gap-4">
-              <div>
-                <p className="mb-0.5 font-heading text-[14px] font-semibold text-white/85">
-                  United States
-                </p>
-                <p className="text-[13px] text-white/45">Dallas, Texas</p>
-              </div>
-              <div>
-                <p className="mb-0.5 font-heading text-[14px] font-semibold text-white/85">India</p>
-                <p className="text-[13px] text-white/45">Bangalore</p>
-              </div>
+              {OFFICE_LOCATIONS.map((office) => (
+                <div key={`${office.city}-${office.country}`}>
+                  <p className="mb-0.5 font-heading text-[14px] font-semibold text-white/85">
+                    {office.city}, {office.region}
+                  </p>
+                  <p className="text-[13px] text-white/45">{office.country}</p>
+                </div>
+              ))}
               <a
                 href={`mailto:${SITE.email}`}
                 className="text-[13px] text-[var(--sky)] transition-colors hover:text-white"

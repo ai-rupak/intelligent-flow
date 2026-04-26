@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   description:
     "CentricaSoft builds AI Agents, GenAI platforms, and enterprise data infrastructure that scale without limits.",
   authors: [{ name: "CentricaSoft LLC" }],
+  icons: {
+    icon: "/assest/logo.webp",
+    shortcut: "/assest/logo.webp",
+    apple: "/assest/logo.webp",
+  },
   openGraph: { type: "website" },
   twitter: { card: "summary_large_image" },
 };
@@ -28,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
           href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700,800&display=swap"
         />
+        <link rel="preload" href="/videos/hero-bg.mp4" as="video" type="video/mp4" />
       </head>
       <body>
         <SmoothScrollProvider>

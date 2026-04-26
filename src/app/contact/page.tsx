@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
 import { ArrowRight, Check, Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
+import { OFFICE_LOCATIONS, SITE } from "@/lib/constants";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(100),
@@ -142,7 +143,7 @@ export default function ContactPage() {
               <div>
                 <span className="label-mono !text-[var(--sky-deep)]">— · Direct lines</span>
                 <div className="mt-6 space-y-5">
-                  <a href="mailto:info@centricasoft.com" className="flex items-start gap-4 group">
+                  <a href={`mailto:${SITE.email}`} className="flex items-start gap-4 group">
                     <div className="w-10 h-10 rounded-full border border-[var(--border)] bg-white flex items-center justify-center shrink-0 group-hover:border-[var(--sky-deep)] transition-colors">
                       <Mail className="w-4 h-4 text-[var(--sky-deep)]" />
                     </div>
@@ -151,7 +152,7 @@ export default function ContactPage() {
                         Email
                       </div>
                       <div className="mt-1 text-[16px] font-medium text-[var(--ink)] group-hover:text-[var(--sky-deep)] transition-colors">
-                        info@centricasoft.com
+                        {SITE.email}
                       </div>
                     </div>
                   </a>
@@ -173,31 +174,21 @@ export default function ContactPage() {
 
               <div>
                 <span className="label-mono !text-[var(--sky-deep)]">— · Offices</span>
-                <div className="mt-6 grid sm:grid-cols-2 gap-5">
-                  {[
-                    {
-                      city: "Austin, TX",
-                      lines: ["701 Brazos St., Suite 1600", "United States"],
-                    },
-                    {
-                      city: "Bengaluru, IN",
-                      lines: ["UB City, Vittal Mallya Rd", "Karnataka 560001"],
-                    },
-                  ].map((o) => (
+                <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                  {OFFICE_LOCATIONS.map((office) => (
                     <div
-                      key={o.city}
+                      key={`${office.city}-${office.country}`}
                       className="rounded-2xl border border-[var(--border)] bg-white p-5"
                     >
                       <div className="flex items-center gap-2">
                         <MapPin className="w-3.5 h-3.5 text-[var(--sky-deep)]" />
                         <span className="text-[13px] font-semibold text-[var(--ink)]">
-                          {o.city}
+                          {office.city}, {office.region}
                         </span>
                       </div>
                       <div className="mt-3 text-[13px] text-[var(--ink-2)] leading-[1.6]">
-                        {o.lines.map((l) => (
-                          <div key={l}>{l}</div>
-                        ))}
+                        <div>{office.country}</div>
+                        <div>{office.note}</div>
                       </div>
                     </div>
                   ))}
@@ -242,10 +233,7 @@ export default function ContactPage() {
                       <p className="mt-4 text-[16px] text-[var(--ink-2)] leading-[1.6] max-w-[420px] mx-auto">
                         A senior engineer will reach out within 24 hours. In the meantime, feel free
                         to forward any docs to{" "}
-                        <span className="text-[var(--sky-deep)] font-medium">
-                          info@centricasoft.com
-                        </span>
-                        .
+                        <span className="text-[var(--sky-deep)] font-medium">{SITE.email}</span>.
                       </p>
                       <button
                         onClick={() => {

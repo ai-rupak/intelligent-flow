@@ -101,6 +101,11 @@ export default function InsightsPage() {
         pill="04 · Insights"
         title="Intelligence. Curated."
         highlight="Curated."
+        variant="immersive"
+        tone="photo"
+        asideLabel="Editorial brief"
+        meta={["Field notes", "Design patterns", "Case studies"]}
+        backgroundImage="https://images.pexels.com/photos/6285258/pexels-photo-6285258.jpeg?cs=srgb&dl=pexels-gustavo-fring-6285258.jpg&fm=jpg"
         subtitle="Field notes, design patterns, and case studies from the engineers shipping production AI and data systems — not the people writing about them."
       />
 
