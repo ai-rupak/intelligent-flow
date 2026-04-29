@@ -53,8 +53,29 @@ export const SERVICES = [
 export const STATS = [
   { value: 100, suffix: "+", label: "Projects Delivered" },
   { value: 50, suffix: "+", label: "Expert Consultants" },
-  { value: 2, suffix: "", label: "Global Offices" },
+  { value: 3, suffix: "", label: "Global Offices" },
 ];
+
+export const OFFICE_LOCATIONS = [
+  {
+    city: "San Francisco",
+    region: "California",
+    country: "United States",
+    note: "Client and architecture hub",
+  },
+  {
+    city: "Bengaluru",
+    region: "Karnataka",
+    country: "India",
+    note: "Engineering hub",
+  },
+  {
+    city: "Kolkata",
+    region: "West Bengal",
+    country: "India",
+    note: "Operations hub",
+  },
+] as const;
 
 export const CASE_STUDIES = [
   {

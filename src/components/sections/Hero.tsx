@@ -1,204 +1,356 @@
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { HeroCanvas } from "@/components/canvas/HeroCanvas";
-import { AnimatedText } from "@/components/ui/AnimatedText";
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { HeroVideo } from "@/components/canvas/HeroVideo";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { ScrollCounter } from "@/components/ui/ScrollCounter";
-import { HoverTilt } from "@/components/ui/HoverTilt";
-import { NuboChatCard } from "@/components/ui/NuboChatCard";
-import { STATS, TECH_STACK } from "@/lib/constants";
+
+const HERO_STATIC_LINES = ["Make Your Data", "Think in Real Time"] as const;
+
+const HERO_ROTATING_LINES = [
+  "Across Every Workflow.",
+  "Ahead of Demand.",
+  "At Decision Speed.",
+] as const;
+
+const HUD_STATS = [
+  {
+    value: 100,
+    suffix: "+",
+    label: "Projects Delivered",
+    accent: "linear-gradient(90deg, #002057 0%, #1EBFFF 100%)",
+  },
+  {
+    value: 50,
+    suffix: "+",
+    label: "Expert Consultants",
+    accent: "linear-gradient(90deg, #0077B6 0%, #1EBFFF 100%)",
+  },
+  {
+    value: 3,
+    suffix: "",
+    label: "Global Offices",
+    accent: "linear-gradient(90deg, #A8CFE6 0%, #1EBFFF 100%)",
+  },
+  {
+    value: 8,
+    suffix: "+",
+    label: "Industries Served",
+    accent: "linear-gradient(90deg, #002057 0%, #0077B6 100%)",
+  },
+] as const;
+
+const heroContentVariants = {
+  hidden: { opacity: 0, y: 18 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+      delayChildren: 0.14,
+      staggerChildren: 0.1,
+    },
+  },
+} as const;
+
+const heroItemVariants = {
+  hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+} as const;
 
 export function Hero() {
-  return (
-    <section className="relative min-h-[100svh] overflow-hidden pt-[72px]">
-      <HeroCanvas />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(60% 80% at 80% 30%, rgba(30,191,255,0.08), transparent), radial-gradient(50% 60% at 10% 80%, rgba(0,32,87,0.06), transparent)",
-        }}
-      />
+  const [activeLine, setActiveLine] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
 
-      <div className="container-x relative z-10 pt-16 pb-32 grid lg:grid-cols-12 gap-12 items-center">
-        {/* LEFT */}
-        <div className="lg:col-span-7">
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const intervalId = window.setInterval(() => {
+      setActiveLine((current) => (current + 1) % HERO_ROTATING_LINES.length);
+    }, 2600);
+
+    return () => window.clearInterval(intervalId);
+  }, [prefersReducedMotion]);
+
+  return (
+    <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#E2F1FB]">
+      <HeroVideo />
+      <HeroFragments />
+
+      <div className="container-x relative z-50 flex min-h-[100svh] items-start justify-center px-0 pb-[92px] pt-[104px] sm:pb-[116px] md:pt-[120px] lg:min-h-[86svh] lg:pt-[128px] xl:min-h-[100svh] xl:items-center xl:pb-[250px]">
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={heroContentVariants}
+          className="mx-auto flex w-full max-w-[820px] flex-col items-center text-center"
+        >
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border-2)] bg-[rgba(168,207,230,0.25)]"
+            variants={heroItemVariants}
+            className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 backdrop-blur-xl md:mb-8 md:px-5"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--sky-deep)] animate-pulse-dot" />
-            <span className="font-mono text-[11px] tracking-[0.14em] text-[var(--sky-deep)]">
-              LIVE · AI + DATA PLATFORM
+            <motion.span
+              className="block h-[7px] w-[7px] rounded-full bg-[var(--sky-bright)]"
+              animate={{ opacity: [1, 0.35, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <span className="font-mono text-[10px] tracking-[0.24em] text-white/82 md:text-[11px]">
+              AI + DATA PLATFORM . LIVE
             </span>
           </motion.div>
 
-          <div className="mt-8">
-            <AnimatedText
-              as="h1"
-              className="font-display font-bold text-[clamp(48px,9vw,96px)] leading-[1.0] text-[var(--ink)]"
-              highlight="Engineered."
-            >
-              Intelligence, Engineered.
-            </AnimatedText>
-          </div>
+          <motion.div variants={heroItemVariants} className="relative max-w-[760px]">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-none absolute inset-x-[15%] top-[10%] h-[54%] rounded-full bg-[radial-gradient(circle,rgba(30,191,255,0.12)_0%,rgba(30,191,255,0)_72%)] blur-3xl"
+            />
+            <motion.div
+              initial={{ opacity: 0, x: "-55%" }}
+              animate={{ opacity: [0, 0.5, 0], x: ["-55%", "48%", "88%"] }}
+              transition={{ duration: 1.4, delay: 0.5, ease: "easeInOut" }}
+              className="pointer-events-none absolute inset-y-[24%] left-0 w-[34%] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(151,228,255,0.24),rgba(255,255,255,0))] blur-2xl"
+            />
+
+            <h1 className="font-display text-[clamp(40px,9vw,66px)] font-semibold leading-[0.96] tracking-[-0.045em] text-white sm:text-[clamp(36px,5.6vw,66px)]">
+              {HERO_STATIC_LINES.map((line, index) => (
+                <motion.span
+                  key={line}
+                  initial={{ opacity: 0, y: 48, filter: "blur(12px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{
+                    duration: 0.95,
+                    delay: 0.22 + index * 0.14,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="block text-white/96"
+                >
+                  {line}
+                </motion.span>
+              ))}
+
+              <span className="relative mt-3 block min-h-[1em] sm:mt-4 sm:min-h-[0.92em]">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={HERO_ROTATING_LINES[activeLine]}
+                    initial={{ opacity: 0, y: 28, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -22, filter: "blur(4px)" }}
+                    transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+                    className="block text-[clamp(32px,7vw,52px)] font-medium tracking-[-0.03em] sm:text-[clamp(30px,4.8vw,52px)]"
+                    style={{
+                      color: "#7FD8FF",
+                      textShadow: "0 0 16px rgba(30,191,255,0.2)",
+                    }}
+                  >
+                    {HERO_ROTATING_LINES[activeLine]}
+                  </motion.span>
+                </AnimatePresence>
+
+                <motion.span
+                  className="absolute -bottom-3 left-1/2 h-px w-[38%] -translate-x-1/2 rounded-full bg-[linear-gradient(90deg,rgba(30,191,255,0),rgba(127,216,255,0.95),rgba(30,191,255,0))]"
+                  initial={{ opacity: 0, scaleX: 0.4 }}
+                  animate={{ opacity: 1, scaleX: [0.8, 1, 0.8] }}
+                  transition={{
+                    opacity: { duration: 0.7, delay: 0.85 },
+                    scaleX: { duration: 5.5, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                />
+              </span>
+            </h1>
+          </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-8 text-[18px] text-[var(--ink-2)] leading-[1.7] max-w-[520px]"
+            variants={heroItemVariants}
+            className="mt-6 max-w-[620px] text-[16px] leading-[1.8] text-white/72 sm:text-[16px] md:mt-7 md:text-[17px] xl:text-[18px]"
           >
-            CentricaSoft builds AI Agents, GenAI platforms, and enterprise data infrastructure
-            that scale without limits — from petabyte pipelines to autonomous decision systems.
+            CentricaSoft engineers AI systems and enterprise data platforms that turn live
+            information into faster decisions, sharper automation, and measurable momentum.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.7 }}
-            className="mt-10 flex flex-wrap items-center gap-6"
+            variants={heroItemVariants}
+            className="mt-7 flex w-full max-w-[390px] flex-row items-center justify-center gap-3 sm:mt-8 sm:max-w-none sm:gap-5"
           >
-            <MagneticButton to="/insights">
-              Explore Our Work
-              <ArrowRight className="ml-2 w-4 h-4" />
+            <MagneticButton
+              to="/what-we-do/agentic-ai"
+              variant="white"
+              className="!flex !h-[52px] !items-center !justify-center !gap-2 !px-6 !text-[14px] !font-semibold !shadow-[0_12px_40px_rgba(0,32,87,0.22)] max-[360px]:!px-4 sm:!h-14 sm:!px-9 sm:!text-[15px]"
+            >
+              See What We Build
+              <ArrowRight className="h-4 w-4" />
             </MagneticButton>
-            <a
+
+            <Link
               href="/products/nubo"
-              className="group inline-flex items-center gap-1.5 text-[15px] text-[var(--sky-deep)] font-medium relative"
+              className="group inline-flex h-[52px] shrink-0 items-center justify-center gap-2 rounded-full border border-white/18 bg-white/8 px-6 text-[14px] font-medium text-white/84 backdrop-blur-md transition-all duration-300 hover:border-white/32 hover:bg-white/12 hover:text-white max-[360px]:px-4 sm:h-14 sm:border-transparent sm:bg-transparent sm:px-2 sm:text-[15px] sm:text-white/72 sm:backdrop-blur-none"
             >
               <span className="relative">
                 Meet Nubo
-                <span className="absolute left-0 right-0 -bottom-1 h-px bg-[var(--sky-deep)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-white/75 transition-transform duration-300 group-hover:scale-x-100" />
               </span>
-              <span aria-hidden>↗</span>
-            </a>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="mt-14 flex flex-wrap gap-x-10 gap-y-4 items-end"
-          >
-            {STATS.map((s, i) => (
-              <div key={s.label} className="flex items-end gap-10">
-                {i > 0 && <span className="hidden sm:block w-px h-10 bg-[var(--border)]" />}
-                <div>
-                  <div className="font-display text-[32px] text-gradient-brand leading-none font-semibold">
-                    <ScrollCounter value={s.value} suffix={s.suffix} />
-                  </div>
-                  <div className="mt-2 text-[12px] text-[var(--ink-3)]">{s.label}</div>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* RIGHT — floating cards */}
-        <div className="lg:col-span-5 relative h-[460px] hidden lg:block">
-          {/* back-right: agent status */}
-          <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-12 right-0 w-[260px] z-10"
-            style={{ transform: "rotate(4deg) scale(0.88)" }}
-          >
-            <div className="rounded-2xl bg-white border border-[var(--border)] p-5 shadow-[0_20px_60px_-20px_rgba(0,32,87,0.15)]">
-              <div className="label-mono text-[var(--sky-deep)] mb-3">Agents</div>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot" />
-                <span className="text-[13px] font-medium text-[var(--ink)]">3 Active</span>
-              </div>
-              <div className="space-y-2 text-[12px] text-[var(--ink-2)]">
-                <div className="flex justify-between"><span>Triage</span><span className="font-mono text-[var(--ink-3)]">8 done</span></div>
-                <div className="flex justify-between"><span>Research</span><span className="font-mono text-[var(--ink-3)]">4 done</span></div>
-                <div className="flex justify-between"><span>Routing</span><span className="font-mono text-[var(--ink-3)]">2 done</span></div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* back-left: data viz */}
-          <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute bottom-0 left-0 w-[240px] z-20 animate-float-y-rev"
-            style={{ transform: "rotate(-6deg) scale(0.92)" }}
-          >
-            <div className="rounded-2xl bg-[var(--surface-2)] border border-[var(--border)] p-5 shadow-[0_20px_60px_-20px_rgba(0,32,87,0.15)]">
-              <div className="label-mono text-[var(--sky-deep)] mb-2">Ingest / sec</div>
-              <div className="font-display text-[28px] text-[var(--navy)] leading-none">2.4 PB</div>
-              <div className="mt-4 flex items-end gap-1 h-12">
-                {[40, 65, 50, 80, 70, 90, 60, 95, 75].map((v, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ height: 0 }}
-                    animate={{ height: `${v}%` }}
-                    transition={{ duration: 0.8, delay: 1 + i * 0.05 }}
-                    className="flex-1 rounded-sm bg-gradient-to-t from-[var(--navy)] to-[var(--sky-bright)]"
-                  />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* front: Nubo chat */}
-          <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-0 right-8 z-30 animate-float-y"
-          >
-            <HoverTilt>
-              <NuboChatCard />
-            </HoverTilt>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* scroll indicator */}
+      <HeroStatsBar />
+      <ScrollIndicator />
+    </section>
+  );
+}
+
+function HeroStatsBar() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, delay: 1.25, ease: [0.22, 1, 0.36, 1] }}
+      className="absolute inset-x-0 bottom-[84px] z-[70] px-4 pb-5 sm:bottom-[72px] sm:px-6 sm:pb-8 lg:mt-5 xl:bottom-0 xl:px-10 xl:pb-12"
+    >
+      <div className="mx-auto grid max-w-[980px] grid-cols-2 gap-0 rounded-[24px] border border-white/14 bg-white/8 p-3 shadow-[0_24px_80px_-36px_rgba(0,18,52,0.9)] backdrop-blur-2xl sm:p-4 md:px-8 md:py-7 xl:grid-cols-4">
+        {HUD_STATS.map((stat, index) => (
+          <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.72,
+              delay: 1.34 + index * 0.08,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className={`flex flex-col items-center justify-center px-2 py-5 text-center sm:px-3 md:py-4 xl:py-1 ${
+              index > 1 ? "border-t border-white/10 md:border-t" : ""
+            } ${index % 2 === 1 ? "border-l border-white/10 md:border-l" : ""} ${
+              index > 0 ? "xl:border-l xl:border-t-0 xl:border-white/10" : ""
+            }`}
+          >
+            <div
+              className="mb-3 h-0.5 w-8 rounded-full"
+              style={{ background: stat.accent }}
+              aria-hidden
+            />
+            <div
+              className="font-display text-[24px] font-bold leading-none sm:text-[28px] md:text-[40px]"
+              style={{
+                background: "linear-gradient(90deg, #FFFFFF 0%, #A8CFE6 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              <ScrollCounter value={stat.value} suffix={stat.suffix} />
+            </div>
+            <div className="mt-2 text-[11px] leading-[1.35] tracking-[0.02em] text-white/58 sm:text-[12px] md:text-[13px]">
+              {stat.label}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function HeroFragments() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[60] hidden xl:block" aria-hidden>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-        className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        initial={{ opacity: 0, x: 24 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.45, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute right-[5.5%] top-[18%] rounded-[18px] border border-white/14 bg-white/9 px-5 py-4 backdrop-blur-xl"
       >
-        <span className="font-mono text-[9px] tracking-[0.2em] text-[var(--ink-3)]">SCROLL</span>
-        <motion.span
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
-          style={{ transformOrigin: "top" }}
-          className="block w-px h-12 bg-[var(--border-2)]"
-        />
-        <motion.span
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity, delay: 2.5 }}
-          className="w-1.5 h-1.5 rounded-full bg-[var(--sky-deep)]"
-        />
+        <div className="font-mono text-[10px] tracking-[0.16em] text-white/45">NUBO . LIVE</div>
+        <div className="mt-2 font-display text-[28px] font-bold leading-none text-white">94.2%</div>
+        <div className="mt-1 text-[12px] text-[#A8CFE6]">Pipeline Efficiency</div>
+        <div className="mt-4 flex h-6 items-end gap-1">
+          {[62, 81, 94].map((height, index) => (
+            <motion.div
+              key={height}
+              className="w-2 rounded-sm"
+              style={{ background: "linear-gradient(to top, #0077B6, #1EBFFF)" }}
+              animate={{ height: [`${height * 0.42}%`, `${height}%`, `${height * 0.42}%`] }}
+              transition={{
+                duration: 2.1,
+                delay: index * 0.26,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </div>
       </motion.div>
 
-      {/* tech bar */}
-      <div className="absolute bottom-0 left-0 right-0 border-t border-[var(--border)] py-4 overflow-hidden mask-fade-x">
-        <div className="flex items-center gap-3 container-x">
-          <span className="font-mono text-[10px] tracking-[0.2em] text-[var(--ink-3)] flex-shrink-0">
-            POWERED BY
+      <motion.div
+        initial={{ opacity: 0, x: -24 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute left-[4.5%] top-[42%] rounded-[16px] border border-white/12 bg-white/8 px-4 py-4 backdrop-blur-xl"
+      >
+        <div className="mb-2 flex items-center gap-2">
+          <motion.span
+            className="block h-[7px] w-[7px] rounded-full bg-[var(--sky-bright)]"
+            animate={{ opacity: [1, 0.3, 1], scale: [1, 1.25, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <span className="font-mono text-[10px] tracking-[0.14em] text-white/48">
+            AGENT STATUS
           </span>
-          <div className="flex-1 overflow-hidden">
-            <div className="flex animate-marquee-slow gap-12 whitespace-nowrap">
-              {[...TECH_STACK, ...TECH_STACK].map((t, i) => (
-                <span key={i} className="font-mono text-[11px] text-[var(--ink-3)]">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
+        <div className="text-[13px] text-white/82">7 Agents Active</div>
+        <div className="mt-1 text-[12px] text-[#A8CFE6]/75">14 tasks completed today</div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: 24 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.95, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute bottom-[29%] right-[4.5%] rounded-[16px] border border-[#1EBFFF]/18 bg-[rgba(0,32,87,0.46)] px-4 py-4 backdrop-blur-xl"
+      >
+        <div className="font-mono text-[10px] tracking-[0.16em] text-[#A8CFE6]/65">
+          DATA INGESTED
+        </div>
+        <div className="mt-2 font-display text-[22px] font-bold leading-none text-white">
+          3.2 TB
+        </div>
+        <div className="mt-1 text-[11px] text-white/48">+18% vs last week</div>
+      </motion.div>
+    </div>
+  );
+}
+
+function ScrollIndicator() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.85, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="absolute left-1/2 z-[80] hidden -translate-x-1/2 flex-col items-center gap-3 xl:flex"
+      style={{ bottom: "min(24vh, 180px)" }}
+    >
+      <span className="font-mono text-[9px] tracking-[0.24em] text-white/48">SCROLL</span>
+      <div className="relative h-14 w-px overflow-hidden rounded-full bg-white/14">
+        <motion.div
+          className="absolute left-0 top-0 w-full rounded-full"
+          style={{ background: "linear-gradient(to bottom, #FFFFFF 0%, #1EBFFF 100%)" }}
+          animate={{ y: ["-100%", "100%"] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
-    </section>
+      <motion.div
+        className="h-1.5 w-1.5 rounded-full bg-white/78"
+        animate={{ opacity: [1, 0.35, 1], scale: [1, 1.5, 1] }}
+        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </motion.div>
   );
 }

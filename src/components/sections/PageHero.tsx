@@ -1,23 +1,34 @@
+"use client";
+
 import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 
-/**
- * Shared editorial hero for sub-pages — light gradient mesh background,
- * pill badge with pulse dot, large display headline with optional gradient
- * highlight word, and an oversized lead paragraph.
- */
+const COMPANY_HERO_IMAGE =
+  'url("https://plus.unsplash.com/premium_photo-1661578924417-12711ba96163?auto=format&fit=crop&fm=jpg&q=80&w=2400")';
+
 export function PageHero({
   pill,
   title,
   highlight,
   subtitle,
   children,
+  variant = "default",
+  tone = "default",
+  asideLabel,
+  meta,
+  backgroundImage,
 }: {
   pill: string;
   title: string;
   highlight?: string;
   subtitle: string;
   children?: ReactNode;
+  variant?: "default" | "immersive";
+  tone?: "default" | "company" | "photo";
+  asideLabel?: string;
+  meta?: string[];
+  backgroundImage?: string;
 }) {
   const renderTitle = () => {
     if (!highlight) return title;
@@ -31,8 +42,244 @@ export function PageHero({
     );
   };
 
+  if (variant === "immersive") {
+    const isPhotoTone = tone === "company" || tone === "photo";
+
+    return (
+      <section
+        className={`relative isolate overflow-hidden bg-[var(--navy-deep)] ${
+          isPhotoTone
+            ? "min-h-[52svh] pt-[120px] pb-16 md:min-h-[56svh] md:pt-[136px] md:pb-20 lg:min-h-[54svh]"
+            : "pt-[136px] pb-[104px] md:pt-[160px] md:pb-32"
+        }`}
+      >
+        {isPhotoTone ? (
+          <>
+            <motion.div
+              aria-hidden
+              initial={{ opacity: 0, scale: 1.02 }}
+              animate={{ opacity: 0.95, scale: [1.02, 1.05, 1.02] }}
+              transition={{
+                opacity: { duration: 1.1, ease: "easeOut" },
+                scale: { duration: 18, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className="pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage: backgroundImage ? `url("${backgroundImage}")` : COMPANY_HERO_IMAGE,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            />
+
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(118deg, rgba(0,18,52,0.9) 8%, rgba(0,20,58,0.8) 42%, rgba(0,28,76,0.56) 100%)",
+              }}
+            />
+
+            <div
+              aria-hidden
+              className="grain pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-screen"
+            />
+
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-70"
+              style={{
+                background:
+                  "radial-gradient(42% 52% at 14% 18%, rgba(30,191,255,0.1), transparent 72%), radial-gradient(30% 40% at 84% 20%, rgba(168,207,230,0.08), transparent 72%), linear-gradient(180deg, rgba(255,255,255,0.03), transparent 24%, transparent 76%, rgba(255,255,255,0.02))",
+                maskImage: "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(112deg, rgba(0,18,52,0.94) 8%, rgba(0,32,87,0.82) 42%, rgba(0,53,128,0.68) 100%)",
+              }}
+            />
+
+            <motion.video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3, scale: [1.04, 1.08, 1.04] }}
+              transition={{
+                opacity: { duration: 1.2, ease: "easeOut" },
+                scale: { duration: 16, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className="absolute inset-0 hidden h-full w-full object-cover md:block"
+              aria-hidden
+            >
+              <source src="/videos/hero-bg.mp4" type="video/mp4" />
+            </motion.video>
+
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-80"
+              style={{
+                background:
+                  "radial-gradient(52% 64% at 12% 18%, rgba(30,191,255,0.22), transparent 70%), radial-gradient(36% 40% at 84% 24%, rgba(168,207,230,0.18), transparent 72%), linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+                backgroundSize: "auto, auto, 92px 92px, 92px 92px",
+                maskImage: "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
+              }}
+            />
+          </>
+        )}
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 w-[48%]"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0,18,52,0.9) 0%, rgba(0,18,52,0.72) 52%, rgba(0,18,52,0) 100%)",
+          }}
+        />
+
+        <div className="container-x relative">
+          <div
+            className={`grid ${isPhotoTone ? "items-end" : ""} lg:items-start ${
+              isPhotoTone
+                ? "gap-6 md:gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(320px,0.72fr)] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.74fr)]"
+                : "gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.85fr)]"
+            }`}
+          >
+            <div className={isPhotoTone ? "max-w-[680px] xl:max-w-[740px]" : "max-w-[760px]"}>
+              <div
+                className={
+                  isPhotoTone
+                    ? "rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-6 shadow-[0_28px_70px_-42px_rgba(0,18,52,0.75)] backdrop-blur-md md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
+                    : ""
+                }
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: -16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 backdrop-blur-xl ${
+                    isPhotoTone
+                      ? "border border-white/12 bg-white/[0.08] shadow-[0_16px_40px_-26px_rgba(30,191,255,0.45)]"
+                      : "border border-white/14 bg-white/10"
+                  }`}
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-[var(--sky-bright)]" />
+                  <span className="label-mono !text-[10px] !tracking-[0.2em] !text-white/78">
+                    {pill}
+                  </span>
+                </motion.div>
+
+                {isPhotoTone && (
+                  <div className="mt-5 label-mono !text-[10px] !tracking-[0.16em] !text-white/46 md:hidden">
+                    {asideLabel ?? "Page brief"}
+                  </div>
+                )}
+
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.85, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className={`mt-8 font-display tracking-[-0.045em] text-white ${
+                    isPhotoTone
+                      ? "max-w-[680px] text-[clamp(40px,5.8vw,72px)] leading-[0.98] xl:max-w-[740px] xl:text-[clamp(44px,5.2vw,76px)]"
+                      : "max-w-[900px] text-[clamp(46px,7vw,84px)] leading-[0.95]"
+                  }`}
+                >
+                  {renderTitle()}
+                </motion.h1>
+
+                {isPhotoTone && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, scaleX: 0.8 }}
+                      animate={{ opacity: 1, scaleX: 1 }}
+                      transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                      className="mt-8 h-[2px] w-24 origin-left bg-gradient-to-r from-[var(--sky-bright)] to-transparent"
+                    />
+
+                    {meta?.length ? (
+                      <div className="mt-6 flex flex-wrap gap-2 md:hidden">
+                        {meta.map((item) => (
+                          <span
+                            key={`hero-mobile-${item}`}
+                            className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-1.5 text-[11px] font-medium tracking-[0.03em] text-white/76"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              className={isPhotoTone ? "lg:pt-[60px] xl:pt-[72px]" : "lg:pt-[88px]"}
+            >
+              {isPhotoTone ? (
+                <div className="relative overflow-hidden rounded-[24px] border border-white/12 bg-white/[0.06] p-6 shadow-[0_28px_80px_-42px_rgba(0,18,52,0.55)] backdrop-blur-md md:p-7 lg:max-w-[420px] lg:ml-auto">
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top,rgba(30,191,255,0.16),transparent_72%)]"
+                  />
+                  <div className="relative">
+                    <div className="label-mono !text-[10px] !tracking-[0.16em] !text-[var(--sky)]">
+                      {asideLabel ?? "Company brief"}
+                    </div>
+                    <p className="mt-4 max-w-[520px] text-[18px] leading-[1.7] text-white/78 md:text-[19px] lg:text-[18px] xl:text-[19px]">
+                      {subtitle}
+                    </p>
+
+                    {meta?.length ? (
+                      <div className="mt-7 hidden flex-wrap gap-2.5 md:flex">
+                        {meta.map((item) => (
+                          <span
+                            key={item}
+                            className="rounded-full border border-white/12 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-medium tracking-[0.03em] text-white/78"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+
+                    {children && <div className="mt-8">{children}</div>}
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <p className="max-w-[560px] text-[18px] leading-[1.7] text-white/78 md:text-[20px]">
+                    {subtitle}
+                  </p>
+                  {children && <div className="mt-8">{children}</div>}
+                </>
+              )}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="relative pt-[160px] pb-32 overflow-hidden">
+    <section className="relative overflow-hidden pt-[160px] pb-32">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -42,15 +289,15 @@ export function PageHero({
         }}
       />
       <div className="container-x relative">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border-2)] bg-[var(--surface-2)]/60">
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--sky-bright)] animate-pulse-dot" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border-2)] bg-[var(--surface-2)]/60 px-3 py-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--sky-bright)] animate-pulse-dot" />
           <span className="label-mono !text-[10px] !text-[var(--sky-deep)]">{pill}</span>
         </div>
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 font-display text-[clamp(48px,8vw,88px)] leading-[1.0] text-[var(--ink)] max-w-[1100px]"
+          className="mt-8 max-w-[1100px] font-display text-[clamp(48px,8vw,88px)] leading-[1] text-[var(--ink)]"
         >
           {renderTitle()}
         </motion.h1>
@@ -58,7 +305,7 @@ export function PageHero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-8 max-w-[680px] text-[20px] text-[var(--ink-2)] leading-[1.6]"
+          className="mt-8 max-w-[680px] text-[20px] leading-[1.6] text-[var(--ink-2)]"
         >
           {subtitle}
         </motion.p>

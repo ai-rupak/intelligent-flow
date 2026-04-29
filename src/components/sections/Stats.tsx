@@ -1,10 +1,14 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { ScrollCounter } from "@/components/ui/ScrollCounter";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const STATS = [
   { value: 100, suffix: "+", label: "Projects Delivered" },
   { value: 50, suffix: "+", label: "Expert Consultants" },
   { value: 8, suffix: "", label: "Industries Served" },
-  { value: 2, suffix: "", label: "Global Offices" },
+  { value: 3, suffix: "", label: "Global Offices" },
 ];
 
 export function Stats() {
@@ -21,18 +25,25 @@ export function Stats() {
       >
         <path d="M16 2L28.124 9V23L16 30L3.876 23V9L16 2Z" fill="white" />
       </svg>
-      <div className="container-x relative">
+      <ScrollReveal className="container-x relative" y={30}>
         <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
           {STATS.map((s, i) => (
-            <div key={s.label} className={`px-6 py-8 lg:py-4 ${i === 0 ? "lg:pl-0" : ""}`}>
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-12%" }}
+              transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className={`px-6 py-8 lg:py-4 ${i === 0 ? "lg:pl-0" : ""}`}
+            >
               <div className="font-display font-semibold text-[clamp(48px,7vw,80px)] leading-none text-gradient-brand">
                 <ScrollCounter value={s.value} suffix={s.suffix} />
               </div>
               <div className="mt-3 text-[14px] text-white/60">{s.label}</div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
 }

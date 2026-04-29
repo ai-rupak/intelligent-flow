@@ -1,6 +1,8 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, BarChart3, Bot, Database, MessageSquareText } from "lucide-react";
 
 type Panel = "what-we-do" | "products" | "company";
 
@@ -49,18 +51,20 @@ function NavRow({
   desc,
 }: {
   to: string;
-  icon: string;
+  icon: React.ReactNode;
   title: string;
   desc: string;
 }) {
   return (
     <Link
-      to={to}
+      href={to}
       className="group block rounded-lg p-3 -m-3 transition-colors hover:bg-[var(--surface-2)] relative"
     >
       <span className="absolute left-0 top-3 bottom-3 w-[2px] bg-[var(--sky-bright)] scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-200" />
       <div className="flex items-start gap-3">
-        <span className="text-[18px] leading-none mt-0.5">{icon}</span>
+        <span className="mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-white text-[var(--sky-deep)] transition-colors duration-200 group-hover:border-[var(--sky-bright)] group-hover:text-[var(--navy)]">
+          {icon}
+        </span>
         <div className="flex-1 min-w-0">
           <div className="font-heading font-semibold text-[14px] text-[var(--ink)] group-hover:text-[var(--navy)]">
             {title}
@@ -86,25 +90,25 @@ function WhatWeDoPanel() {
         <div className="space-y-5">
           <NavRow
             to="/what-we-do/agentic-ai"
-            icon="🤖"
+            icon={<Bot className="h-4 w-4" />}
             title="Agentic AI & Autonomous Agents"
             desc="AI agents that act, adapt, and deliver."
           />
           <NavRow
             to="/what-we-do/genai-chatbots"
-            icon="💬"
+            icon={<MessageSquareText className="h-4 w-4" />}
             title="Generative AI Chatbots"
             desc="Enterprise chatbots powered by RAG & LLMs."
           />
           <NavRow
             to="/what-we-do/data-engineering"
-            icon="🔧"
+            icon={<Database className="h-4 w-4" />}
             title="Data Engineering & Pipelines"
             desc="Cloud-native pipelines at petabyte scale."
           />
           <NavRow
             to="/what-we-do/data-analytics"
-            icon="📊"
+            icon={<BarChart3 className="h-4 w-4" />}
             title="Data Analytics & Insights"
             desc="Turn raw data into decisions."
           />
@@ -113,7 +117,7 @@ function WhatWeDoPanel() {
       <div className="col-span-3">
         <ColLabel>Featured Work</ColLabel>
         <Link
-          to="/insights"
+          href="/insights"
           className="group block rounded-2xl bg-[var(--surface-2)] p-5 hover:bg-[var(--surface-3)] transition-colors"
         >
           <div className="aspect-[4/3] rounded-xl bg-gradient-brand mb-4 relative overflow-hidden">
@@ -149,15 +153,12 @@ function ProductsPanel() {
   return (
     <div className="grid grid-cols-12 gap-10">
       <div className="col-span-4">
-        <PanelHeader
-          title="Our Products"
-          sub="Built in-house. Deployed at enterprise scale."
-        />
+        <PanelHeader title="Our Products" sub="Built in-house. Deployed at enterprise scale." />
       </div>
       <div className="col-span-8">
         <ColLabel>Products</ColLabel>
         <Link
-          to="/products/nubo"
+          href="/products/nubo"
           className="group block rounded-2xl bg-[var(--surface-2)] p-6 border-l-[3px] border-transparent hover:border-[var(--sky-bright)] transition-colors relative overflow-hidden"
         >
           <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-brand" />
@@ -195,25 +196,34 @@ function CompanyPanel() {
   return (
     <div className="grid grid-cols-12 gap-10">
       <div className="col-span-3">
-        <PanelHeader
-          title="Company"
-          sub="Who we are, who we serve, and how we partner."
-        />
+        <PanelHeader title="Company" sub="Who we are, who we serve, and how we partner." />
       </div>
       <div className="col-span-5">
         <ColLabel>Company</ColLabel>
         <div className="space-y-5">
-          <NavRow to="/company/about" icon="○" title="About Us" desc="Our story, mission, and team." />
-          <NavRow to="/company/clients" icon="◇" title="Clients" desc="Enterprises who trust CentricaSoft." />
-          <NavRow to="/company/partners" icon="△" title="Partners" desc="Our technology and delivery ecosystem." />
+          <NavRow
+            to="/company/about"
+            icon="○"
+            title="About Us"
+            desc="Our story, mission, and team."
+          />
+          <NavRow
+            to="/company/clients"
+            icon="◇"
+            title="Clients"
+            desc="Enterprises who trust CentricaSoft."
+          />
+          <NavRow
+            to="/company/partners"
+            icon="△"
+            title="Partners"
+            desc="Our technology and delivery ecosystem."
+          />
         </div>
       </div>
       <div className="col-span-4">
         <ColLabel>Latest</ColLabel>
-        <Link
-          to="/insights"
-          className="group block"
-        >
+        <Link href="/insights" className="group block">
           <div className="label-mono text-[var(--sky-deep)] mb-2">Insight · Apr 2025</div>
           <div className="font-heading font-semibold text-[15px] text-[var(--ink)] leading-snug group-hover:text-[var(--navy)]">
             Why agentic AI is the new operating layer for enterprise software

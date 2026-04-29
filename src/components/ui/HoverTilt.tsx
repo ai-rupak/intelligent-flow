@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, type ReactNode, type MouseEvent } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
@@ -22,7 +24,10 @@ export function AnimatedText({
       {words.map((w, i) => {
         const isHi = highlight && w.replace(/[.,!?]/g, "") === highlight;
         return (
-          <span key={i} className="inline-block overflow-hidden align-bottom pb-[0.12em] mr-[0.25em]">
+          <span
+            key={i}
+            className="inline-block overflow-hidden align-bottom pb-[0.12em] mr-[0.25em]"
+          >
             <motion.span
               initial={{ y: "110%" }}
               whileInView={{ y: "0%" }}

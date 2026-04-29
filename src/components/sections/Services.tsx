@@ -1,59 +1,211 @@
-import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { HoverTilt } from "@/components/ui/HoverTilt";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SERVICES } from "@/lib/constants";
 
-export function Services() {
-  return (
-    <section className="section-y bg-[var(--surface-2)]">
-      <div className="container-x">
-        <SectionLabel number="02">Services</SectionLabel>
-        <h2 className="mt-6 font-display text-[clamp(40px,6vw,64px)] leading-[1.05] text-[var(--ink)] max-w-[700px]">
-          What We Build.
-        </h2>
+const SERVICE_VISUALS: Record<string, { image: string; eyebrow: string }> = {
+  "agentic-ai": {
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    eyebrow: "Autonomous Systems",
+  },
+  "genai-chatbots": {
+    image:
+      "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1400&q=80",
+    eyebrow: "Enterprise Conversations",
+  },
+  "data-engineering": {
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=80",
+    eyebrow: "Cloud Data Fabric",
+  },
+  "data-analytics": {
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+    eyebrow: "Decision Intelligence",
+  },
+};
 
-        <div className="mt-16 grid md:grid-cols-2 gap-6">
-          {SERVICES.map((s, i) => (
-            <motion.div
-              key={s.slug}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <HoverTilt max={4}>
-                <Link
-                  to={`/what-we-do/${s.slug}`}
-                  className="group block relative overflow-hidden rounded-2xl bg-white border border-[var(--border)] p-10 h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_-20px_rgba(0,32,87,0.18)]"
+const SERVICE_ACCENTS: Record<string, { title: string; counter: string; progress: string }> = {
+  "agentic-ai": {
+    title: "#8F7CFF",
+    counter: "#9E8BFF",
+    progress: "#7F5CFF",
+  },
+  "genai-chatbots": {
+    title: "#55E6D7",
+    counter: "#6BF0E3",
+    progress: "#40D7C7",
+  },
+  "data-engineering": {
+    title: "#7DE7FF",
+    counter: "#8DEEFF",
+    progress: "#1EBFFF",
+  },
+  "data-analytics": {
+    title: "#FFB86B",
+    counter: "#FFC98E",
+    progress: "#FF9F43",
+  },
+};
+
+export function Services() {
+  const [active, setActive] = useState(0);
+  const service = SERVICES[active];
+  const visual = SERVICE_VISUALS[service.slug];
+  const accent = SERVICE_ACCENTS[service.slug];
+
+  const move = (direction: 1 | -1) => {
+    setActive((current) => (current + direction + SERVICES.length) % SERVICES.length);
+  };
+
+  return (
+    <section className="relative overflow-hidden bg-[#001234] py-14 text-white sm:py-16 lg:py-20">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-45"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 18% 12%, rgba(30,191,255,0.28) 0 1px, transparent 2px), radial-gradient(circle at 78% 42%, rgba(64,215,199,0.24) 0 1px, transparent 2px)",
+          backgroundSize: "32px 32px, 42px 42px",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-35"
+        style={{
+          background:
+            "radial-gradient(70% 55% at 12% 8%, rgba(30,191,255,0.14), transparent), radial-gradient(65% 55% at 88% 52%, rgba(64,215,199,0.12), transparent)",
+        }}
+      />
+
+      <div className="container-x relative">
+        <ScrollReveal y={24} blur={8}>
+          <SectionLabel number="02">Services</SectionLabel>
+          <h2 className="mt-4 max-w-[760px] font-heading text-[clamp(30px,4.2vw,48px)] font-bold leading-[1.12] text-white">
+            AI, GenAI, and data engineering services for teams building at scale.
+          </h2>
+        </ScrollReveal>
+
+        <div className="mt-9 grid items-center gap-8 md:mt-10 lg:grid-cols-[0.9fr_0.78fr] lg:gap-12">
+          <ScrollReveal x={-32} className="relative">
+            <div className="absolute -left-4 -top-4 h-16 w-16 border-l border-t border-[#1EBFFF]/30 sm:h-20 sm:w-20" />
+            <div className="absolute -bottom-4 -right-4 h-16 w-16 border-b border-r border-[#40D7C7]/25 sm:h-20 sm:w-20" />
+            <div className="relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] shadow-[0_30px_90px_-44px_rgba(30,191,255,0.55)]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={service.slug}
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative aspect-[1.55] min-h-[220px] bg-cover bg-center sm:min-h-[260px] md:min-h-[300px] lg:min-h-[320px]"
+                  style={{ backgroundImage: `url(${visual.image})` }}
                 >
-                  <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-brand scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
-                  <div className="absolute top-6 right-8 font-mono text-[11px] text-[var(--border-2)]">
-                    0{i + 1}
+                  <div className="absolute inset-0 bg-[#001234]/24" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#001234]/58 via-[#002057]/18 to-[#1EBFFF]/10" />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-12"
+                    style={{
+                      background:
+                        "linear-gradient(120deg, transparent 0 44%, rgba(125,231,255,0.18) 45%, transparent 54%)",
+                    }}
+                  />
+                  <div className="absolute bottom-4 left-4 rounded-md border border-white/15 bg-[#001234]/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70 backdrop-blur-md">
+                    {visual.eyebrow}
                   </div>
-                  <div className="text-[36px] mb-6">{s.icon}</div>
-                  <h3 className="font-heading font-bold text-[22px] text-[var(--ink)] leading-tight">
-                    {s.title}
-                  </h3>
-                  <p className="mt-4 text-[15px] text-[var(--ink-2)] leading-[1.75]">{s.body}</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {s.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="label-mono text-[10px] px-2.5 py-1 rounded-md bg-[var(--surface-2)] text-[var(--sky-deep)]"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-8 flex items-center gap-1.5 text-[13px] text-[var(--sky-deep)] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                    Explore practice <ArrowUpRight className="w-3.5 h-3.5" />
-                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal x={32} delay={0.08}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={service.slug}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -18 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="font-mono text-[13px]" style={{ color: accent.counter }}>
+                  {String(active + 1).padStart(2, "0")} / {String(SERVICES.length).padStart(2, "0")}
+                </div>
+                <h3
+                  className="mt-3 max-w-[500px] font-heading text-[clamp(24px,3.4vw,34px)] font-bold leading-[1.1]"
+                  style={{ color: accent.title }}
+                >
+                  {service.title}
+                </h3>
+                <p className="mt-4 max-w-[520px] text-[15px] leading-[1.7] text-white/72 md:text-[16px]">
+                  {service.body}
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white/65"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <Link
+                  href={`/what-we-do/${service.slug}`}
+                  className="group mt-6 inline-flex items-center gap-2 text-[14px] font-medium text-[#7DE7FF]"
+                >
+                  Explore practice
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
-              </HoverTilt>
-            </motion.div>
-          ))}
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="mt-7 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => move(-1)}
+                aria-label="Previous service"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/[0.04] text-white/75 transition-all hover:border-[#7DE7FF]/60 hover:bg-white/[0.08] hover:text-white md:h-11 md:w-11"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => move(1)}
+                aria-label="Next service"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/[0.04] text-white/75 transition-all hover:border-[#7DE7FF]/60 hover:bg-white/[0.08] hover:text-white md:h-11 md:w-11"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="mt-7 flex gap-2.5">
+              {SERVICES.map((item, index) => (
+                <button
+                  key={item.slug}
+                  type="button"
+                  onClick={() => setActive(index)}
+                  aria-label={`Show ${item.title}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    active === index ? "w-12" : "w-8 bg-white/20 hover:bg-white/35"
+                  }`}
+                  style={
+                    active === index
+                      ? { backgroundColor: SERVICE_ACCENTS[item.slug].progress }
+                      : undefined
+                  }
+                />
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

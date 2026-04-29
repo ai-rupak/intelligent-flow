@@ -1,4 +1,7 @@
+"use client";
+
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const ROW_1 = [
   "Mercer Health",
@@ -41,15 +44,19 @@ function Row({ items, reverse }: { items: string[]; reverse?: boolean }) {
 export function Clients() {
   return (
     <section className="py-24 bg-[var(--surface-2)]">
-      <div className="container-x mb-12">
+      <ScrollReveal className="container-x mb-12" y={22}>
         <SectionLabel number="05">Trusted By</SectionLabel>
         <h2 className="mt-4 font-display text-[clamp(28px,4vw,40px)] text-[var(--ink)]">
           Enterprises building the next decade of intelligence.
         </h2>
-      </div>
+      </ScrollReveal>
       <div className="space-y-6">
-        <Row items={ROW_1} />
-        <Row items={ROW_2} reverse />
+        <ScrollReveal y={18} delay={0.05}>
+          <Row items={ROW_1} />
+        </ScrollReveal>
+        <ScrollReveal y={18} delay={0.12}>
+          <Row items={ROW_2} reverse />
+        </ScrollReveal>
       </div>
     </section>
   );

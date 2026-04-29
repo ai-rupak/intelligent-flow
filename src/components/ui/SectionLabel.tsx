@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 
 export function SectionLabel({ number, children }: { number: string; children: string }) {
