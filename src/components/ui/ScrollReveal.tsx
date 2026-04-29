@@ -1,9 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ComponentPropsWithoutRef } from "react";
+import type { HTMLMotionProps } from "framer-motion";
 
-type ScrollRevealProps = ComponentPropsWithoutRef<"div"> & {
+type ScrollRevealProps = Omit<
+  HTMLMotionProps<"div">,
+  "initial" | "whileInView" | "transition" | "viewport"
+> & {
   delay?: number;
   duration?: number;
   x?: number;

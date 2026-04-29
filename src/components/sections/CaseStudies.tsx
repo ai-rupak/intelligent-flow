@@ -59,7 +59,9 @@ export function CaseStudies() {
     const onSel = () => setSelected(emblaApi.selectedScrollSnap());
     emblaApi.on("select", onSel);
     onSel();
-    return () => emblaApi.off("select", onSel);
+    return () => {
+      emblaApi.off("select", onSel);
+    };
   }, [emblaApi]);
 
   return (
