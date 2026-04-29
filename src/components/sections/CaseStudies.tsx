@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { CASE_STUDIES } from "@/lib/constants";
 
 const CASE_STUDY_VISUALS: Record<
@@ -65,16 +66,16 @@ export function CaseStudies() {
     <section className="section-y">
       <div className="container-x">
         <div className="grid items-end gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-8">
+          <ScrollReveal className="lg:col-span-8" x={-24}>
             <SectionLabel number="04">Case Studies</SectionLabel>
             <h2 className="mt-6 font-display text-[clamp(40px,6vw,64px)] leading-[1.05] text-[var(--ink)]">
               Real Impact.
               <br />
               Real Scale.
             </h2>
-          </div>
+          </ScrollReveal>
 
-          <div className="flex flex-col gap-4 lg:col-span-4">
+          <ScrollReveal className="flex flex-col gap-4 lg:col-span-4" x={24} delay={0.08}>
             <div className="flex items-center justify-between">
               <div className="font-mono text-[12px] text-[var(--ink-3)]">
                 <span className="text-[var(--navy)]">{String(selected + 1).padStart(2, "0")}</span>
@@ -101,10 +102,10 @@ export function CaseStudies() {
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               />
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
-        <div className="mt-16 -mx-5 lg:-mx-20">
+        <ScrollReveal className="mt-16 -mx-5 lg:-mx-20" y={34} delay={0.1}>
           <div className="overflow-hidden px-5 lg:px-20" ref={emblaRef}>
             <div className="flex gap-6">
               {CASE_STUDIES.map((study) => {
@@ -221,7 +222,7 @@ export function CaseStudies() {
               })}
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SERVICES } from "@/lib/constants";
 
 const SERVICE_VISUALS: Record<string, { image: string; eyebrow: string }> = {
@@ -84,13 +85,15 @@ export function Services() {
       />
 
       <div className="container-x relative">
-        <SectionLabel number="02">Services</SectionLabel>
-        <h2 className="mt-4 max-w-[760px] font-heading text-[clamp(30px,4.2vw,48px)] font-bold leading-[1.12] text-white">
-          AI, GenAI, and data engineering services for teams building at scale.
-        </h2>
+        <ScrollReveal y={24} blur={8}>
+          <SectionLabel number="02">Services</SectionLabel>
+          <h2 className="mt-4 max-w-[760px] font-heading text-[clamp(30px,4.2vw,48px)] font-bold leading-[1.12] text-white">
+            AI, GenAI, and data engineering services for teams building at scale.
+          </h2>
+        </ScrollReveal>
 
         <div className="mt-9 grid items-center gap-8 md:mt-10 lg:grid-cols-[0.9fr_0.78fr] lg:gap-12">
-          <div className="relative">
+          <ScrollReveal x={-32} className="relative">
             <div className="absolute -left-4 -top-4 h-16 w-16 border-l border-t border-[#1EBFFF]/30 sm:h-20 sm:w-20" />
             <div className="absolute -bottom-4 -right-4 h-16 w-16 border-b border-r border-[#40D7C7]/25 sm:h-20 sm:w-20" />
             <div className="relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] shadow-[0_30px_90px_-44px_rgba(30,191,255,0.55)]">
@@ -120,9 +123,9 @@ export function Services() {
                 </motion.div>
               </AnimatePresence>
             </div>
-          </div>
+          </ScrollReveal>
 
-          <div>
+          <ScrollReveal x={32} delay={0.08}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={service.slug}
@@ -202,7 +205,7 @@ export function Services() {
                 />
               ))}
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

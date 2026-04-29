@@ -1,13 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { HeroVideo } from "@/components/canvas/HeroVideo";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { ScrollCounter } from "@/components/ui/ScrollCounter";
 
-const HERO_LINES = ["Your Data Has", "Never Thought", "This Fast."] as const;
+const HERO_STATIC_LINES = ["Make Your Data", "Think in Real Time"] as const;
+
+const HERO_ROTATING_LINES = [
+  "Across Every Workflow.",
+  "Ahead of Demand.",
+  "At Decision Speed.",
+] as const;
 
 const HUD_STATS = [
   {
@@ -36,18 +43,58 @@ const HUD_STATS = [
   },
 ] as const;
 
+const heroContentVariants = {
+  hidden: { opacity: 0, y: 18 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+      delayChildren: 0.14,
+      staggerChildren: 0.1,
+    },
+  },
+} as const;
+
+const heroItemVariants = {
+  hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+} as const;
+
 export function Hero() {
+  const [activeLine, setActiveLine] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const intervalId = window.setInterval(() => {
+      setActiveLine((current) => (current + 1) % HERO_ROTATING_LINES.length);
+    }, 2600);
+
+    return () => window.clearInterval(intervalId);
+  }, [prefersReducedMotion]);
+
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#E2F1FB]">
       <HeroVideo />
       <HeroFragments />
 
       <div className="container-x relative z-50 flex min-h-[100svh] items-start justify-center px-0 pb-[92px] pt-[104px] sm:pb-[116px] md:pt-[120px] lg:min-h-[86svh] lg:pt-[128px] xl:min-h-[100svh] xl:items-center xl:pb-[250px]">
-        <div className="mx-auto flex w-full max-w-[820px] flex-col items-center text-center">
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={heroContentVariants}
+          className="mx-auto flex w-full max-w-[820px] flex-col items-center text-center"
+        >
           <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            variants={heroItemVariants}
             className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 backdrop-blur-xl md:mb-8 md:px-5"
           >
             <motion.span
@@ -60,49 +107,78 @@ export function Hero() {
             </span>
           </motion.div>
 
-          <div className="max-w-[820px]">
-            <h1 className="font-display text-[clamp(38px,8.6vw,82px)] font-extrabold leading-[0.9] tracking-[-0.045em] text-white sm:text-[clamp(40px,7vw,82px)]">
-              {HERO_LINES.map((line, index) => (
+          <motion.div variants={heroItemVariants} className="relative max-w-[760px]">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-none absolute inset-x-[15%] top-[10%] h-[54%] rounded-full bg-[radial-gradient(circle,rgba(30,191,255,0.12)_0%,rgba(30,191,255,0)_72%)] blur-3xl"
+            />
+            <motion.div
+              initial={{ opacity: 0, x: "-55%" }}
+              animate={{ opacity: [0, 0.5, 0], x: ["-55%", "48%", "88%"] }}
+              transition={{ duration: 1.4, delay: 0.5, ease: "easeInOut" }}
+              className="pointer-events-none absolute inset-y-[24%] left-0 w-[34%] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(151,228,255,0.24),rgba(255,255,255,0))] blur-2xl"
+            />
+
+            <h1 className="font-display text-[clamp(40px,9vw,66px)] font-semibold leading-[0.96] tracking-[-0.045em] text-white sm:text-[clamp(36px,5.6vw,66px)]">
+              {HERO_STATIC_LINES.map((line, index) => (
                 <motion.span
                   key={line}
-                  initial={{ opacity: 0, y: 48 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 48, filter: "blur(12px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{
-                    duration: 0.9,
+                    duration: 0.95,
                     delay: 0.22 + index * 0.14,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="block"
-                  style={
-                    index === 2
-                      ? {
-                          background: "linear-gradient(90deg, #A8CFE6 0%, #1EBFFF 100%)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                        }
-                      : undefined
-                  }
+                  className="block text-white/96"
                 >
                   {line}
                 </motion.span>
               ))}
+
+              <span className="relative mt-3 block min-h-[1em] sm:mt-4 sm:min-h-[0.92em]">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={HERO_ROTATING_LINES[activeLine]}
+                    initial={{ opacity: 0, y: 28, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -22, filter: "blur(4px)" }}
+                    transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+                    className="block text-[clamp(32px,7vw,52px)] font-medium tracking-[-0.03em] sm:text-[clamp(30px,4.8vw,52px)]"
+                    style={{
+                      color: "#7FD8FF",
+                      textShadow: "0 0 16px rgba(30,191,255,0.2)",
+                    }}
+                  >
+                    {HERO_ROTATING_LINES[activeLine]}
+                  </motion.span>
+                </AnimatePresence>
+
+                <motion.span
+                  className="absolute -bottom-3 left-1/2 h-px w-[38%] -translate-x-1/2 rounded-full bg-[linear-gradient(90deg,rgba(30,191,255,0),rgba(127,216,255,0.95),rgba(30,191,255,0))]"
+                  initial={{ opacity: 0, scaleX: 0.4 }}
+                  animate={{ opacity: 1, scaleX: [0.8, 1, 0.8] }}
+                  transition={{
+                    opacity: { duration: 0.7, delay: 0.85 },
+                    scaleX: { duration: 5.5, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                />
+              </span>
             </h1>
-          </div>
+          </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
+            variants={heroItemVariants}
             className="mt-6 max-w-[620px] text-[16px] leading-[1.8] text-white/72 sm:text-[16px] md:mt-7 md:text-[17px] xl:text-[18px]"
           >
-            CentricaSoft engineers autonomous AI systems and enterprise data infrastructure for
-            organizations that refuse to move slowly.
+            CentricaSoft engineers AI systems and enterprise data platforms that turn live
+            information into faster decisions, sharper automation, and measurable momentum.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.98, ease: [0.22, 1, 0.36, 1] }}
+            variants={heroItemVariants}
             className="mt-7 flex w-full max-w-[390px] flex-row items-center justify-center gap-3 sm:mt-8 sm:max-w-none sm:gap-5"
           >
             <MagneticButton
@@ -125,7 +201,7 @@ export function Hero() {
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       <HeroStatsBar />
@@ -144,8 +220,15 @@ function HeroStatsBar() {
     >
       <div className="mx-auto grid max-w-[980px] grid-cols-2 gap-0 rounded-[24px] border border-white/14 bg-white/8 p-3 shadow-[0_24px_80px_-36px_rgba(0,18,52,0.9)] backdrop-blur-2xl sm:p-4 md:px-8 md:py-7 xl:grid-cols-4">
         {HUD_STATS.map((stat, index) => (
-          <div
+          <motion.div
             key={stat.label}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.72,
+              delay: 1.34 + index * 0.08,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className={`flex flex-col items-center justify-center px-2 py-5 text-center sm:px-3 md:py-4 xl:py-1 ${
               index > 1 ? "border-t border-white/10 md:border-t" : ""
             } ${index % 2 === 1 ? "border-l border-white/10 md:border-l" : ""} ${
@@ -170,7 +253,7 @@ function HeroStatsBar() {
             <div className="mt-2 text-[11px] leading-[1.35] tracking-[0.02em] text-white/58 sm:text-[12px] md:text-[13px]">
               {stat.label}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </motion.div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function CTAStrip() {
   return (
@@ -13,7 +14,7 @@ export function CTAStrip() {
           CENTRICASOFT
         </span>
       </div>
-      <div className="container-x relative text-center">
+      <ScrollReveal className="container-x relative text-center" y={28}>
         <h2 className="font-display text-[clamp(40px,7vw,80px)] leading-[1.0] text-[var(--ink)] max-w-[900px] mx-auto">
           Ready to engineer
           <br />
@@ -27,7 +28,7 @@ export function CTAStrip() {
             Request a Consultation
           </MagneticButton>
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
 }

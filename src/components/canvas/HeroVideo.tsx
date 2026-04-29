@@ -119,8 +119,11 @@ export function HeroVideo() {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
       />
 
-      <div
-        className="pointer-events-none absolute inset-0 opacity-80"
+      <motion.div
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 0.8, scale: 1 }}
+        transition={{ duration: 1.2, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
@@ -129,6 +132,13 @@ export function HeroVideo() {
           WebkitMaskImage:
             "radial-gradient(ellipse 80% 80% at 50% 46%, black 42%, transparent 100%)",
         }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, x: "-45%" }}
+        animate={{ opacity: [0, 0.18, 0], x: ["-45%", "42%", "95%"] }}
+        transition={{ duration: 1.9, delay: 0.45, ease: "easeInOut" }}
+        className="pointer-events-none absolute inset-y-[18%] left-0 w-[28%] bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.18),rgba(255,255,255,0))] blur-3xl"
       />
     </div>
   );

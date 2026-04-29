@@ -6,6 +6,7 @@ import { Database, Plug, Sparkles } from "lucide-react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { NuboChatCard } from "@/components/ui/NuboChatCard";
 import { HoverTilt } from "@/components/ui/HoverTilt";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const FEATURES = [
   {
@@ -44,17 +45,20 @@ export function NuboFeature() {
 
       <div className="container-x relative grid lg:grid-cols-12 gap-16 items-center">
         <div className="lg:col-span-7">
-          <SectionLabel number="03">Featured Product</SectionLabel>
-          <h2 className="mt-6 font-display text-[clamp(40px,6vw,64px)] leading-[1.05] text-[var(--ink)]">
-            Meet Nubo.
-          </h2>
-          <p className="mt-3 font-heading text-[clamp(20px,2.5vw,28px)] text-[var(--ink-2)]">
-            Your Enterprise AI Brain.
-          </p>
-          <p className="mt-6 max-w-[520px] text-[17px] text-[var(--ink-2)] leading-[1.75]">
-            Nubo is our production-grade GenAI chatbot platform — built on RAG, prompt engineering,
-            and enterprise integration. One backbone for support, research, sales, and operations.
-          </p>
+          <ScrollReveal y={26}>
+            <SectionLabel number="03">Featured Product</SectionLabel>
+            <h2 className="mt-6 font-display text-[clamp(40px,6vw,64px)] leading-[1.05] text-[var(--ink)]">
+              Meet Nubo.
+            </h2>
+            <p className="mt-3 font-heading text-[clamp(20px,2.5vw,28px)] text-[var(--ink-2)]">
+              Your Enterprise AI Brain.
+            </p>
+            <p className="mt-6 max-w-[520px] text-[17px] text-[var(--ink-2)] leading-[1.75]">
+              Nubo is our production-grade GenAI chatbot platform — built on RAG, prompt
+              engineering, and enterprise integration. One backbone for support, research, sales,
+              and operations.
+            </p>
+          </ScrollReveal>
 
           <div className="mt-10 space-y-6 max-w-[540px]">
             {FEATURES.map((f, i) => (
@@ -93,13 +97,15 @@ export function NuboFeature() {
           </a>
         </div>
 
-        <motion.div style={{ y }} className="lg:col-span-5 flex justify-center">
-          <div className="animate-float-y">
-            <HoverTilt>
-              <NuboChatCard />
-            </HoverTilt>
-          </div>
-        </motion.div>
+        <ScrollReveal x={32} y={20} delay={0.08} className="lg:col-span-5 flex justify-center">
+          <motion.div style={{ y }}>
+            <div className="animate-float-y">
+              <HoverTilt>
+                <NuboChatCard />
+              </HoverTilt>
+            </div>
+          </motion.div>
+        </ScrollReveal>
       </div>
     </section>
   );

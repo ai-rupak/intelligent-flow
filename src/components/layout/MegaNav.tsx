@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, BarChart3, Bot, Database, MessageSquareText } from "lucide-react";
 
 type Panel = "what-we-do" | "products" | "company";
 
@@ -51,7 +51,7 @@ function NavRow({
   desc,
 }: {
   to: string;
-  icon: string;
+  icon: React.ReactNode;
   title: string;
   desc: string;
 }) {
@@ -62,7 +62,9 @@ function NavRow({
     >
       <span className="absolute left-0 top-3 bottom-3 w-[2px] bg-[var(--sky-bright)] scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-200" />
       <div className="flex items-start gap-3">
-        <span className="text-[18px] leading-none mt-0.5">{icon}</span>
+        <span className="mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-white text-[var(--sky-deep)] transition-colors duration-200 group-hover:border-[var(--sky-bright)] group-hover:text-[var(--navy)]">
+          {icon}
+        </span>
         <div className="flex-1 min-w-0">
           <div className="font-heading font-semibold text-[14px] text-[var(--ink)] group-hover:text-[var(--navy)]">
             {title}
@@ -88,25 +90,25 @@ function WhatWeDoPanel() {
         <div className="space-y-5">
           <NavRow
             to="/what-we-do/agentic-ai"
-            icon="🤖"
+            icon={<Bot className="h-4 w-4" />}
             title="Agentic AI & Autonomous Agents"
             desc="AI agents that act, adapt, and deliver."
           />
           <NavRow
             to="/what-we-do/genai-chatbots"
-            icon="💬"
+            icon={<MessageSquareText className="h-4 w-4" />}
             title="Generative AI Chatbots"
             desc="Enterprise chatbots powered by RAG & LLMs."
           />
           <NavRow
             to="/what-we-do/data-engineering"
-            icon="🔧"
+            icon={<Database className="h-4 w-4" />}
             title="Data Engineering & Pipelines"
             desc="Cloud-native pipelines at petabyte scale."
           />
           <NavRow
             to="/what-we-do/data-analytics"
-            icon="📊"
+            icon={<BarChart3 className="h-4 w-4" />}
             title="Data Analytics & Insights"
             desc="Turn raw data into decisions."
           />
