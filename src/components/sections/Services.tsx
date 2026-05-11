@@ -8,7 +8,15 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SERVICES as BASE_SERVICES } from "@/lib/constants";
 
-const HOME_SERVICES = [
+type HomeService = {
+  slug: string;
+  title: string;
+  body: string;
+  tags: readonly string[];
+  href?: string;
+};
+
+const HOME_SERVICES: readonly HomeService[] = [
   ...BASE_SERVICES,
   {
     slug: "ml-advanced-analytics",

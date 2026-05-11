@@ -52,6 +52,7 @@ export function Navbar() {
   const [mobile, setMobile] = useState(false);
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>(null);
   const pathname = usePathname();
+  const currentPath = pathname ?? "";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -106,15 +107,15 @@ export function Navbar() {
   }, [mobile]);
 
   const overDarkHero =
-    (pathname === "/" ||
-      pathname === "/products/nubo" ||
-      pathname.startsWith("/what-we-do/") ||
-      pathname.startsWith("/company/") ||
-      pathname === "/contact" ||
-      pathname.startsWith("/privacy-policy") ||
-      pathname.startsWith("/terms-of-use") ||
-      pathname === "/insights" ||
-      pathname === "/careers") &&
+    (currentPath === "/" ||
+      currentPath === "/products/nubo" ||
+      currentPath.startsWith("/what-we-do/") ||
+      currentPath.startsWith("/company/") ||
+      currentPath === "/contact" ||
+      currentPath.startsWith("/privacy-policy") ||
+      currentPath.startsWith("/terms-of-use") ||
+      currentPath === "/insights" ||
+      currentPath === "/careers") &&
     !scrolled &&
     !active;
   const navItemBase = overDarkHero
@@ -172,7 +173,7 @@ export function Navbar() {
                 href={item.href}
                 onMouseEnter={scheduleClose}
                 className={`inline-flex h-10 items-center rounded-lg px-4 text-[14px] font-medium transition-all duration-150 ${
-                  pathname === item.href ? navItemActive : navItemBase
+                  currentPath === item.href ? navItemActive : navItemBase
                 }`}
               >
                 {item.label}
