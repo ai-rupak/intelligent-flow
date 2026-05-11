@@ -211,64 +211,83 @@ export function Services() {
             {HOME_SERVICES.map((item, index) => {
               const itemVisual = SERVICE_VISUALS[item.slug];
               const itemAccent = SERVICE_ACCENTS[item.slug];
+              const itemHref = item.href ?? `/what-we-do/${item.slug}`;
 
               return (
                 <article
                   key={item.slug}
-                  className="w-[min(80vw,340px)] shrink-0 snap-center border border-white/10 bg-white/[0.03]"
+                  className="relative w-[min(84vw,360px)] shrink-0 snap-center overflow-hidden rounded-[24px] border border-white/10 bg-[#04122f] shadow-[0_24px_60px_-40px_rgba(0,0,0,0.72)]"
                 >
-                  <div className="relative overflow-hidden border-b border-white/10">
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-30"
+                    style={{
+                      backgroundImage:
+                        "radial-gradient(circle at 16% 14%, rgba(124,109,255,0.18), transparent 18%), radial-gradient(circle at 82% 72%, rgba(30,191,255,0.14), transparent 22%)",
+                    }}
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-25"
+                    style={{
+                      backgroundImage:
+                        "repeating-radial-gradient(circle at 0 0, transparent 0 22px, rgba(59,97,208,0.3) 22px 24px, transparent 24px 46px)",
+                    }}
+                  />
+
+                  <div className="relative p-5 pb-0">
                     <div
-                      className="relative aspect-[1.28] bg-cover bg-center"
+                      className="relative aspect-[1.4] overflow-hidden rounded-[14px] border border-white/10 bg-cover bg-center"
                       style={{ backgroundImage: `url(${itemVisual.image})` }}
                     >
-                      <div className="absolute inset-0 bg-[#001234]/24" />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-[#001234]/58 via-[#002057]/18 to-[#1EBFFF]/10" />
+                      <div className="absolute inset-0 bg-[#001234]/38" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#001234]/62 via-[#002057]/16 to-[#c5b2ff]/14" />
                       <div
                         aria-hidden
-                        className="absolute inset-0 opacity-12"
+                        className="absolute inset-0 opacity-30"
                         style={{
                           background:
-                            "linear-gradient(120deg, transparent 0 44%, rgba(125,231,255,0.18) 45%, transparent 54%)",
+                            "linear-gradient(120deg, transparent 0 48%, rgba(200,180,255,0.28) 49%, rgba(139,110,255,0.18) 58%, transparent 60%)",
                         }}
                       />
-                      <div className="absolute bottom-4 left-4 border border-white/15 bg-[#001234]/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70 backdrop-blur-md">
+                      <div className="absolute bottom-3 left-3 rounded-full border border-white/15 bg-[#001234]/55 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70 backdrop-blur-md">
                         {itemVisual.eyebrow}
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-4">
+                  <div className="relative p-5 pb-6">
                     <div className="font-mono text-[13px]" style={{ color: itemAccent.counter }}>
                       {String(index + 1).padStart(2, "0")} /{" "}
                       {String(HOME_SERVICES.length).padStart(2, "0")}
                     </div>
                     <h3
-                      className="mt-3 font-heading text-[24px] font-bold leading-[1.08]"
+                      className="mt-3 max-w-[13ch] font-heading text-[26px] font-bold leading-[1.05]"
                       style={{ color: itemAccent.title }}
                     >
                       {item.title}
                     </h3>
-                    <p className="mt-4 text-[15px] leading-[1.7] text-white/72">{item.body}</p>
+                    <p className="mt-4 max-w-[28ch] text-[14px] leading-[1.6] text-white/74">
+                      {item.body}
+                    </p>
 
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {item.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white/65"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                    <div className="mt-5 flex items-center justify-between">
+                      <Link
+                        href={itemHref}
+                        className="group inline-flex items-center gap-2 text-[13px] font-medium text-[#7DE7FF]"
+                      >
+                        Explore practice
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => moveMobile(1)}
+                        aria-label="Next service"
+                        className="grid h-10 w-10 place-items-center rounded-full border border-white/18 bg-white/[0.04] text-white/78 transition-all hover:border-[#7DE7FF]/60 hover:bg-white/[0.08] hover:text-white"
+                      >
+                        <ArrowRight className="h-4 w-4" />
+                      </button>
                     </div>
-
-                    <Link
-                      href={item.href ?? `/what-we-do/${item.slug}`}
-                      className="group mt-6 inline-flex items-center gap-2 text-[14px] font-medium text-[#7DE7FF]"
-                    >
-                      Explore practice
-                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
                   </div>
                 </article>
               );

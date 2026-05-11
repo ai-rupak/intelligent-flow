@@ -30,22 +30,6 @@ const MOBILE_SUBNAV: Record<Panel, { label: string; href: string }[]> = {
   ],
 };
 
-const MOBILE_WHAT_WE_DO_INDUSTRIES = [
-  "Healthcare",
-  "Finance",
-  "Logistics",
-  "Retail",
-  "Enterprise",
-  "Energy",
-  "Media & Studios",
-  "Financial Services",
-  "Insurance",
-  "Restaurants",
-  "Fitness",
-  "SaaS",
-  "Real Estate",
-];
-
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<Panel | null>(null);
@@ -265,12 +249,6 @@ export function Navbar() {
                           panel={item.mega}
                           open={mobilePanel === item.mega}
                           links={MOBILE_SUBNAV[item.mega]}
-                          footerTitle={
-                            item.mega === "what-we-do" ? "Industries We Serve" : undefined
-                          }
-                          footerItems={
-                            item.mega === "what-we-do" ? MOBILE_WHAT_WE_DO_INDUSTRIES : undefined
-                          }
                           onToggle={() =>
                             setMobilePanel((current) => (current === item.mega ? null : item.mega))
                           }
@@ -327,8 +305,6 @@ function MobileNavGroup({
   panel,
   open,
   links,
-  footerTitle,
-  footerItems,
   onToggle,
 }: {
   index: number;
@@ -336,8 +312,6 @@ function MobileNavGroup({
   panel: Panel;
   open: boolean;
   links: { label: string; href: string }[];
-  footerTitle?: string;
-  footerItems?: string[];
   onToggle: () => void;
 }) {
   return (
@@ -382,25 +356,6 @@ function MobileNavGroup({
                   <span className="h-px w-4 bg-[#7DE7FF]/40 transition-all group-hover/sub:w-7 group-hover/sub:bg-[#7DE7FF]" />
                 </Link>
               ))}
-              {footerItems?.length ? (
-                <div className="mt-5 border-t border-white/10 pt-4">
-                  {footerTitle ? (
-                    <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7DE7FF]/72">
-                      {footerTitle}
-                    </div>
-                  ) : null}
-                  <div className="flex flex-wrap gap-2">
-                    {footerItems.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-white/12 bg-white/[0.04] px-3 py-1.5 text-[11px] leading-none text-white/70"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
             </div>
           </motion.div>
         )}
