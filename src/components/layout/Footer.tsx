@@ -11,6 +11,8 @@ const LINKS = {
     { label: "GenAI Chatbots", href: "/what-we-do/genai-chatbots" },
     { label: "Data Engineering", href: "/what-we-do/data-engineering" },
     { label: "Data Analytics", href: "/what-we-do/data-analytics" },
+    { label: "ML & Advanced Analytics", href: "/what-we-do/data-analytics" },
+    { label: "App Development", href: "/contact" },
   ],
   Products: [{ label: "Nubo Platform", href: "/products/nubo" }],
   Company: [
@@ -76,6 +78,11 @@ function HexLogo() {
 }
 
 export function Footer() {
+  const legalLinks = [
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Use", href: "/terms-of-use" },
+  ];
+
   return (
     <footer className="border-t border-white/[0.06] bg-[var(--navy-deep)] text-white">
       <div className="container-x pb-8 pt-20">
@@ -151,13 +158,13 @@ export function Footer() {
             &copy; 2025 CentricaSoft LLC. All rights reserved.
           </p>
           <div className="flex gap-6">
-            {["Privacy Policy", "Terms of Use"].map((label) => (
+            {legalLinks.map((item) => (
               <Link
-                key={label}
-                href="#"
+                key={item.label}
+                href={item.href}
                 className="text-[12px] text-white/30 transition-colors hover:text-white/60"
               >
-                {label}
+                {item.label}
               </Link>
             ))}
           </div>

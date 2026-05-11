@@ -116,13 +116,13 @@ export default function PartnersPage() {
     <>
       <PageHero
         pill="03 · Company"
-        title="Our Ecosystem. Your Advantage."
-        highlight="Advantage."
-        subtitle="Hyperscaler partnerships, data-platform alliances, and a global delivery network assembled to ship enterprise outcomes faster."
+        title="Partnerships that strengthen delivery."
+        subtitle="Our ecosystem brings together the platforms, tooling, and specialist partners that help enterprise programs move with more confidence and less friction."
         variant="immersive"
         tone="company"
-        asideLabel="Partner network"
-        meta={["Hyperscalers", "AI platforms", "Global delivery allies"]}
+        size="compact"
+        asideLabel="Partner ecosystem"
+        meta={["Cloud platforms", "AI providers", "Delivery allies"]}
         backgroundImage="https://images.pexels.com/photos/6931199/pexels-photo-6931199.jpeg?cs=srgb&dl=pexels-mikhail-nilov-6931199.jpg&fm=jpg"
       />
 

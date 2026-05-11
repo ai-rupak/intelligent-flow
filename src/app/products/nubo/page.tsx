@@ -143,7 +143,7 @@ const CAPABILITIES = [
   {
     icon: Plug,
     title: "Seamless Integration",
-    body: "Connect Nubo to your CRM, ERP, ticketing system, or internal wiki in days, not months. Pre-built connectors for Salesforce, ServiceNow, Confluence, Slack, Teams, and custom APIs.",
+    body: "Connect Nubo to your CRM, ERP, ticketing system, or internal wiki in days, not months. Prebuilt connectors cover Salesforce, ServiceNow, Confluence, Slack, Teams, and custom APIs.",
     chips: ["Salesforce", "ServiceNow", "Confluence", "Slack"],
   },
 ];
@@ -152,7 +152,7 @@ export default function NuboPage() {
   return (
     <>
       {/* HERO — dark navy */}
-      <section className="relative pt-[160px] pb-32 bg-[var(--navy)] text-white overflow-hidden">
+      <section className="relative overflow-hidden bg-[var(--navy)] pt-[148px] pb-24 text-white md:pt-[156px] md:pb-28">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-80"
@@ -172,47 +172,46 @@ export default function NuboPage() {
             WebkitMaskImage: "radial-gradient(ellipse at center, #000 10%, transparent 70%)",
           }}
         />
-        <div className="container-x relative grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+        <div className="container-x relative grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.88fr)] lg:gap-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/7">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/7 px-3 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--sky-bright)] animate-pulse-dot" />
-              <span className="label-mono !text-[10px] !text-[var(--sky-bright)]">
-                — Flagship Product · v2.4
+              <span className="label-mono !text-[10px] !tracking-[0.16em] !text-[var(--sky-bright)]">
+                FLAGSHIP PRODUCT / V2.4
               </span>
             </div>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 font-display text-[clamp(56px,9vw,96px)] leading-[0.95]"
+              className="mt-8 max-w-[760px] font-display text-[clamp(46px,7vw,82px)] leading-[0.92] tracking-[-0.05em]"
             >
-              Nubo.
-              <br />
-              <span className="bg-[linear-gradient(90deg,#FFFFFF_0%,var(--sky)_42%,var(--sky-bright)_100%)] bg-clip-text text-transparent">
-                The Enterprise AI Brain.
+              <span className="block text-white">Nubo.</span>
+              <span className="mt-2 block bg-[linear-gradient(90deg,#f7fbff_0%,#b8dff3_44%,var(--sky-bright)_100%)] bg-clip-text text-transparent">
+                The enterprise AI brain.
               </span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-8 max-w-[520px] text-[18px] text-white/70 leading-[1.7]"
+              className="mt-7 max-w-[560px] text-[17px] leading-[1.72] text-white/72 md:text-[18px]"
             >
               End-to-end GenAI chatbot platform. RAG-grounded, prompt-engineered, integration-ready
-              — built for enterprises that can't afford to hallucinate.
+              - built for enterprises that cannot afford hallucinations.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-10 flex flex-wrap items-center gap-6"
+              className="mt-9 flex flex-wrap items-center gap-5"
             >
               <MagneticButton to="/contact" variant="white">
                 Request a Demo
               </MagneticButton>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center gap-2 text-[15px] text-[var(--sky)] hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 text-[15px] font-medium text-[#9cc6e1] transition-colors hover:text-white"
               >
                 See How It Works <ArrowDown className="w-4 h-4" />
               </a>
@@ -222,7 +221,7 @@ export default function NuboPage() {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-[440px] animate-float-y will-change-transform"
+            className="relative mx-auto w-full max-w-[420px] animate-float-y will-change-transform lg:max-w-[440px]"
           >
             <NuboChatCard compact />
           </motion.div>
@@ -232,12 +231,12 @@ export default function NuboPage() {
       {/* CAPABILITIES — alternating rows */}
       <section className="section-y bg-[var(--bg)]" id="how-it-works">
         <div className="container-x">
-          <SectionLabel number="— 02">Core Capabilities</SectionLabel>
-          <h2 className="mt-6 font-display text-[clamp(36px,5vw,56px)] leading-[1.05] text-[var(--ink)] max-w-[700px]">
+          <SectionLabel number="02">Core Capabilities</SectionLabel>
+          <h2 className="mt-6 max-w-[640px] font-display text-[clamp(32px,4.2vw,48px)] leading-[1.08] text-[var(--ink)]">
             Three pillars. One platform.
           </h2>
 
-          <div className="mt-20 space-y-28">
+          <div className="mt-16 space-y-24">
             {CAPABILITIES.map((c, i) => {
               const Icon = c.icon;
               return (
@@ -247,7 +246,7 @@ export default function NuboPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-15%" }}
                   transition={{ duration: 0.7 }}
-                  className={`grid lg:grid-cols-2 gap-12 items-center ${
+                  className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-12 ${
                     c.flip ? "lg:[&>*:first-child]:order-2" : ""
                   }`}
                 >
@@ -258,10 +257,10 @@ export default function NuboPage() {
                     <div className="mt-4 font-mono text-[11px] text-[var(--ink-3)]">
                       0{i + 1} / 03
                     </div>
-                    <h3 className="mt-3 font-display text-[clamp(28px,4vw,40px)] leading-[1.1] text-[var(--ink)]">
+                    <h3 className="mt-3 font-display text-[clamp(24px,3vw,34px)] leading-[1.12] text-[var(--ink)]">
                       {c.title}
                     </h3>
-                    <p className="mt-5 text-[17px] text-[var(--ink-2)] leading-[1.75]">{c.body}</p>
+                    <p className="mt-5 text-[16px] leading-[1.75] text-[var(--ink-2)]">{c.body}</p>
                     <div className="mt-6 flex flex-wrap gap-2">
                       {c.chips.map((ch) => (
                         <span
@@ -284,9 +283,9 @@ export default function NuboPage() {
       {/* ARCHITECTURE */}
       <section className="section-y bg-[var(--surface-2)]">
         <div className="container-x">
-          <SectionLabel number="— 03">Architecture</SectionLabel>
-          <div className="mt-6 grid md:grid-cols-[1fr_auto] gap-6 items-end mb-12">
-            <h2 className="font-display text-[clamp(36px,5vw,56px)] leading-[1.05] text-[var(--ink)] max-w-[700px]">
+          <SectionLabel number="03">Architecture</SectionLabel>
+          <div className="mb-12 mt-6 grid items-end gap-6 md:grid-cols-[1fr_auto]">
+            <h2 className="max-w-[640px] font-display text-[clamp(32px,4.2vw,48px)] leading-[1.08] text-[var(--ink)]">
               Built for production. Audited by design.
             </h2>
             <p className="max-w-[360px] text-[15px] text-[var(--ink-2)] leading-[1.7]">
@@ -302,8 +301,8 @@ export default function NuboPage() {
       <section className="section-y bg-white">
         <div className="container-x">
           <div className="mb-10">
-            <SectionLabel number="— 04">Use Cases</SectionLabel>
-            <h2 className="mt-6 font-display text-[clamp(36px,5vw,56px)] leading-[1.05] text-[var(--ink)]">
+            <SectionLabel number="04">Use Cases</SectionLabel>
+            <h2 className="mt-6 font-display text-[clamp(32px,4.2vw,48px)] leading-[1.08] text-[var(--ink)]">
               One platform. Every industry.
             </h2>
           </div>
@@ -311,14 +310,14 @@ export default function NuboPage() {
             {USE_CASES.map((u, i) => (
               <div key={i} className="shrink-0 grow-0 px-2" style={{ flex: "0 0 min(380px, 90%)" }}>
                 <HoverTilt max={3}>
-                  <div className="h-full rounded-2xl bg-white border border-[var(--border)] p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_-28px_rgba(0,32,87,0.22)]">
+                  <div className="h-full rounded-2xl border border-[var(--border)] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_-24px_rgba(0,32,87,0.16)]">
                     <div className="label-mono !text-[var(--sky-deep)]">{u.industry}</div>
                     <h3 className="mt-4 font-heading font-bold text-[20px] text-[var(--ink)] leading-tight">
                       {u.title}
                     </h3>
                     <p className="mt-3 text-[14px] text-[var(--ink-2)] leading-[1.7]">{u.body}</p>
                     <div className="mt-6 pt-5 border-t border-[var(--border)]">
-                      <div className="font-display text-[18px] leading-tight text-gradient-brand">
+                      <div className="font-display text-[18px] leading-tight text-[var(--navy)]">
                         {u.metric}
                       </div>
                     </div>
@@ -341,8 +340,8 @@ export default function NuboPage() {
           }}
         />
         <div className="container-x relative text-center">
-          <h2 className="font-display text-[clamp(40px,6vw,72px)] leading-[1.05] max-w-[800px] mx-auto">
-            Ready to deploy <span className="text-gradient-brand">Nubo?</span>
+          <h2 className="mx-auto max-w-[720px] font-display text-[clamp(34px,4.8vw,58px)] leading-[1.08]">
+            Ready to deploy <span className="text-[#9fd8f3]">Nubo?</span>
           </h2>
           <p className="mt-6 text-[16px] text-white/65 max-w-[500px] mx-auto leading-[1.7]">
             Book a working session with our team. We'll scope your use case and ship a

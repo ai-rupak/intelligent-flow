@@ -10,8 +10,10 @@ import {
   Linkedin,
   Lightbulb,
   Medal,
+  Quote,
   ShieldCheck,
 } from "lucide-react";
+import Image from "next/image";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTAStrip } from "@/components/sections/CTAStrip";
 import { ScrollCounter } from "@/components/ui/ScrollCounter";
@@ -104,6 +106,7 @@ const TEAM_MEMBERS = [
     role: "CEO",
     ownership: "Vision and growth",
     body: "Owns company direction, growth strategy, and the long-range priorities behind delivery and partnerships.",
+    image: "/team/Chiranjib.jpeg",
     linkedin: "https://www.linkedin.com/",
   },
   {
@@ -111,6 +114,7 @@ const TEAM_MEMBERS = [
     role: "Co-Founder",
     ownership: "Product and innovation",
     body: "Guides innovation, product thinking, and how new technical ideas turn into repeatable client value.",
+    image: "/team/Amit.jpeg",
     linkedin: "https://www.linkedin.com/",
   },
   {
@@ -118,6 +122,7 @@ const TEAM_MEMBERS = [
     role: "Director",
     ownership: "Delivery governance",
     body: "Keeps programs aligned across stakeholders, milestones, and execution quality from kickoff to rollout.",
+    image: "/team/Shampa.jpeg",
     linkedin: "https://www.linkedin.com/",
   },
   {
@@ -125,13 +130,15 @@ const TEAM_MEMBERS = [
     role: "Delivery Partner",
     ownership: "Client outcomes",
     body: "Owns business alignment, executive communication, and measurable value after systems go live.",
+    image: "/team/Samad.jpeg",
     linkedin: "https://www.linkedin.com/",
   },
   {
-    name: "Mahalaxmi ",
+    name: "Sonali Jana",
     role: "Team Lead",
     ownership: "Engineering execution",
     body: "Guides squads through design, implementation, and review cycles while protecting engineering rigor.",
+    image: "/team/Sonali.jpeg",
     linkedin: "https://www.linkedin.com/",
   },
   {
@@ -139,6 +146,7 @@ const TEAM_MEMBERS = [
     role: "AI Lead",
     ownership: "Applied intelligence",
     body: "Shapes agent design, model evaluation, and AI system quality so experiments mature into reliable production capability.",
+    image: "/team/Indranil.jpeg",
     linkedin: "https://www.linkedin.com/",
   },
 ] as const;
@@ -150,18 +158,26 @@ const TEAM_STATS = [
   { value: 6, suffix: "", label: "Languages spoken" },
 ] as const;
 
+const [FEATURED_MEMBER, ...LEADERSHIP_TEAM] = TEAM_MEMBERS;
+
+const FOUNDER_NOTE = {
+  eyebrow: "Word from our founder",
+  quote:
+    "We build long-term partnerships by turning AI, data, and cloud ambition into dependable systems teams can trust every day.",
+} as const;
+
 export default function AboutPage() {
   return (
     <>
       <PageHero
-        pill="01 - Company"
-        title="Built to Build."
-        highlight="Build."
-        subtitle="We are CentricaSoft. AI and data engineers obsessed with making intelligence work in the real world, not just in demos."
+        pill="01 / Company"
+        title="About Us"
+        subtitle="CentricaSoft helps organizations turn AI, data, and cloud initiatives into reliable operating systems, not slideware."
         variant="immersive"
         tone="company"
-        asideLabel="Mission snapshot"
-        meta={["50+ consultants", "US + India delivery", "Production-first AI"]}
+        size="compact"
+        asideLabel="About CentricaSoft"
+        meta={["AI + data engineering", "US + India delivery", "Production-first mindset"]}
         backgroundImage="https://images.pexels.com/photos/36765725/pexels-photo-36765725.jpeg?cs=srgb&dl=pexels-silverkblack-36765725.jpg&fm=jpg"
       />
 
@@ -422,84 +438,162 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f4f9fd_0%,#ffffff_72%)] py-20 md:py-24">
-        <SectionAccentPattern variant="bottom-left" />
+      <section className="relative overflow-hidden bg-[#09153b] py-20 text-white md:py-24">
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 12% 18%, rgba(50,94,255,0.18), transparent 18%), radial-gradient(circle at 84% 82%, rgba(30,191,255,0.12), transparent 20%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-y-0 left-0 w-72 opacity-25"
+          style={{
+            backgroundImage:
+              "repeating-radial-gradient(circle at 0 0, transparent 0 24px, rgba(72,105,205,0.32) 24px 26px, transparent 26px 48px)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-y-0 right-0 w-72 opacity-20"
+          style={{
+            backgroundImage:
+              "repeating-radial-gradient(circle at 100% 100%, transparent 0 24px, rgba(72,105,205,0.32) 24px 26px, transparent 26px 48px)",
+          }}
+        />
         <div className="container-x relative z-10">
-          <SectionLabel number="04">Leadership & Team</SectionLabel>
-          <div className="mt-12 grid items-end gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(280px,0.42fr)]">
-            <h2 className="max-w-[620px] font-display text-[clamp(30px,4vw,44px)] leading-[1.08] text-[var(--ink)]">
-              Meet the people shaping the work.
-            </h2>
-            <p className="max-w-[360px] text-[14px] leading-[1.7] text-[var(--ink-2)]">
-              These cards are set up with image placeholders and LinkedIn slots so you can quickly
-              swap in the real team members when you are ready.
-            </p>
+          <div className="inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/74">
+            <Quote className="h-3.5 w-3.5 text-[var(--sky-bright)]" />
+            <span>{FOUNDER_NOTE.eyebrow}</span>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {TEAM_MEMBERS.map((member, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.65 }}
+            className="mt-10 overflow-hidden rounded-[28px] border border-white/12 bg-white/8 backdrop-blur-sm"
+          >
+            <div className="grid gap-8 p-6 md:grid-cols-[220px_minmax(0,1fr)] md:p-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:p-10">
+              <div className="relative mx-auto h-[280px] w-full max-w-[240px] overflow-hidden rounded-[24px] border border-white/10 bg-[#12214f] md:mx-0 lg:h-[320px] lg:max-w-[260px]">
+                <Image
+                  src={FEATURED_MEMBER.image}
+                  alt={FEATURED_MEMBER.name}
+                  fill
+                  sizes="(min-width: 1024px) 260px, (min-width: 768px) 220px, 240px"
+                  className="object-cover object-top"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-x-0 bottom-0 h-24"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(9,21,59,0) 0%, rgba(9,21,59,0.92) 100%)",
+                  }}
+                />
+              </div>
+
+              <div className="flex flex-col justify-center">
+                <div className="max-w-4xl text-[clamp(28px,3.6vw,52px)] font-semibold leading-[1.18] text-white">
+                  &ldquo;{FOUNDER_NOTE.quote}&rdquo;
+                </div>
+                <div className="mt-8 h-px w-full max-w-[160px] bg-white/14" />
+                <div className="mt-6">
+                  <div className="font-display text-[clamp(28px,4vw,44px)] italic leading-none text-white">
+                    {FEATURED_MEMBER.name}
+                  </div>
+                  <div className="mt-3 text-[14px] uppercase tracking-[0.18em] text-white/62">
+                    {FEATURED_MEMBER.role}
+                  </div>
+                  <p className="mt-4 max-w-2xl text-[15px] leading-[1.8] text-white/74">
+                    {FEATURED_MEMBER.body}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="mt-18 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="text-[clamp(42px,6vw,64px)] font-display leading-none text-white">
+                Our Team
+              </div>
+              <p className="mt-5 max-w-[560px] text-[15px] leading-[1.8] text-white/68">
+                Senior leadership across product, delivery, engineering, and applied AI.
+              </p>
+            </div>
+            <div className="text-[13px] uppercase tracking-[0.18em] text-white/48">
+              Leadership & Team
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+            {LEADERSHIP_TEAM.map((member, index) => (
               <motion.div
-                key={member.role}
+                key={member.name}
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="group relative flex h-full flex-col overflow-hidden border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(244,249,253,0.94))] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_-22px_rgba(0,32,87,0.16)]"
+                className="group flex h-full flex-col rounded-[22px] border border-white/12 bg-[linear-gradient(180deg,rgba(247,249,252,0.98),rgba(231,236,244,0.96))] p-4 text-[var(--ink)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_22px_46px_-26px_rgba(0,0,0,0.45)]"
               >
-                <div className="absolute right-4 top-4 label-mono !text-[10px] !text-[var(--border-2)]">
-                  0{index + 1}
-                </div>
-                <div className="flex flex-col items-center text-center">
-                  <div className="relative h-24 w-24 overflow-hidden rounded-full border border-[var(--border)] bg-[linear-gradient(135deg,var(--surface-2),white)]">
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 opacity-80"
-                      style={{
-                        background:
-                          "radial-gradient(circle at 20% 20%, rgba(30,191,255,0.16), transparent 42%), radial-gradient(circle at 80% 78%, rgba(168,207,230,0.22), transparent 46%)",
-                      }}
+                <div className="flex items-start gap-4">
+                  <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-[14px] border border-black/8 bg-white">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="96px"
+                      className="object-cover object-top"
                     />
-                    <div className="relative flex h-full w-full items-center justify-center text-center">
-                      <div className="px-2">
-                        <div className="font-heading text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--ink)]">
-                          Photo
+                  </div>
+                  <div className="min-w-0 flex-1 pt-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-[24px] font-semibold leading-[1.15] text-[var(--navy)]">
+                          {member.name}
+                        </h3>
+                        <div className="mt-1 text-[15px] font-medium text-[var(--ink-2)]">
+                          {member.role}
                         </div>
-                        <div className="mt-1 text-[10px] text-[var(--ink-3)]">Drop image</div>
+                        <div className="mt-2 text-[11px] uppercase tracking-[0.16em] text-[var(--sky-deep)]">
+                          {member.ownership}
+                        </div>
                       </div>
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${member.name} LinkedIn`}
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[var(--ink-3)] transition-colors hover:text-[var(--sky-deep)]"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </a>
                     </div>
                   </div>
-
-                  <div className="mt-4 label-mono !text-[10px] !text-[var(--sky-deep)]">
-                    {member.ownership}
-                  </div>
-                  <h3 className="mt-2 font-display text-[clamp(20px,2.2vw,24px)] leading-[1.08] text-[var(--ink)]">
-                    {member.role}
-                  </h3>
-                  <div className="mt-1 text-[13px] font-medium text-[var(--ink-3)]">
-                    {member.name}
-                  </div>
                 </div>
 
-                <p className="mt-4 text-[13.5px] leading-[1.7] text-[var(--ink-2)]">
+                <p className="mt-4 border-t border-black/6 pt-4 text-[14px] leading-[1.75] text-[var(--ink-2)]">
                   {member.body}
                 </p>
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-auto inline-flex items-center justify-between gap-2 border-t border-[var(--border)] pt-4 text-[13px] font-medium text-[var(--navy)] transition-colors hover:text-[var(--sky-deep)]"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <Linkedin className="h-4 w-4" />
-                    LinkedIn
-                  </span>
-                  <ArrowUpRight className="h-4 w-4" />
-                </a>
+                <div className="mt-auto pt-4 text-[13px] font-medium text-[var(--navy)]">
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 transition-colors hover:text-[var(--sky-deep)]"
+                  >
+                    View profile
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-12 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--border)] shadow-[0_24px_64px_-40px_rgba(0,32,87,0.18)]">
+          <div className="mt-12 overflow-hidden rounded-[22px] border border-white/12 bg-white/6 backdrop-blur-sm">
             <div className="grid grid-cols-2 gap-px md:grid-cols-4">
               {TEAM_STATS.map((metric, index) => (
                 <motion.div
@@ -508,12 +602,12 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ duration: 0.6, delay: index * 0.08 }}
-                  className="bg-white p-8"
+                  className="bg-transparent p-8"
                 >
-                  <div className="font-display text-[clamp(36px,4.5vw,48px)] leading-none text-gradient-brand">
+                  <div className="font-display text-[clamp(36px,4.5vw,48px)] leading-none text-white">
                     <ScrollCounter value={metric.value} suffix={metric.suffix} />
                   </div>
-                  <div className="mt-3 text-[13px] text-[var(--ink-2)]">{metric.label}</div>
+                  <div className="mt-3 text-[13px] text-white/62">{metric.label}</div>
                 </motion.div>
               ))}
             </div>

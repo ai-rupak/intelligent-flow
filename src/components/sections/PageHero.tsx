@@ -11,10 +11,12 @@ export function PageHero({
   pill,
   title,
   highlight,
+  highlightClassName,
   subtitle,
   children,
   variant = "default",
   tone = "default",
+  size = "default",
   asideLabel,
   meta,
   backgroundImage,
@@ -22,10 +24,12 @@ export function PageHero({
   pill: string;
   title: string;
   highlight?: string;
+  highlightClassName?: string;
   subtitle: string;
   children?: ReactNode;
   variant?: "default" | "immersive";
   tone?: "default" | "company" | "photo";
+  size?: "default" | "compact";
   asideLabel?: string;
   meta?: string[];
   backgroundImage?: string;
@@ -36,7 +40,7 @@ export function PageHero({
     return (
       <>
         {parts[0]}
-        <span className="text-gradient-brand">{highlight}</span>
+        <span className={highlightClassName ?? "text-gradient-brand"}>{highlight}</span>
         {parts[1]}
       </>
     );
@@ -44,12 +48,15 @@ export function PageHero({
 
   if (variant === "immersive") {
     const isPhotoTone = tone === "company" || tone === "photo";
+    const isCompact = size === "compact";
 
     return (
       <section
         className={`relative isolate overflow-hidden bg-[var(--navy-deep)] ${
           isPhotoTone
-            ? "min-h-[52svh] pt-[120px] pb-16 md:min-h-[56svh] md:pt-[136px] md:pb-20 lg:min-h-[54svh]"
+            ? isCompact
+              ? "min-h-[20svh] pt-[92px] pb-6 md:min-h-[22svh] md:pt-[98px] md:pb-7 lg:min-h-[21svh] lg:pt-[102px] lg:pb-8"
+              : "min-h-[52svh] pt-[120px] pb-16 md:min-h-[56svh] md:pt-[136px] md:pb-20 lg:min-h-[54svh]"
             : "pt-[136px] pb-[104px] md:pt-[160px] md:pb-32"
         }`}
       >
@@ -82,7 +89,7 @@ export function PageHero({
 
             <div
               aria-hidden
-              className="grain pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-screen"
+              className="grain pointer-events-none absolute inset-0 opacity-[0.1] mix-blend-screen"
             />
 
             <div
@@ -94,6 +101,17 @@ export function PageHero({
                 maskImage: "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
                 WebkitMaskImage:
                   "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
+              }}
+            />
+
+            <div
+              aria-hidden
+              className="grain pointer-events-none absolute inset-x-0 top-0 h-[42%] opacity-[0.14] mix-blend-screen"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.8) 58%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.8) 58%, transparent 100%)",
               }}
             />
           </>
@@ -143,7 +161,9 @@ export function PageHero({
 
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-[48%]"
+          className={`pointer-events-none absolute inset-y-0 left-0 ${
+            isPhotoTone && isCompact ? "w-[34%] md:w-[36%] lg:w-[32%]" : "w-[48%]"
+          }`}
           style={{
             background:
               "linear-gradient(90deg, rgba(0,18,52,0.9) 0%, rgba(0,18,52,0.72) 52%, rgba(0,18,52,0) 100%)",
@@ -154,15 +174,27 @@ export function PageHero({
           <div
             className={`grid ${isPhotoTone ? "items-end" : ""} lg:items-start ${
               isPhotoTone
-                ? "gap-6 md:gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(320px,0.72fr)] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.74fr)]"
+                ? isCompact
+                  ? "gap-4 md:gap-5 lg:grid-cols-[minmax(0,0.84fr)_minmax(280px,0.56fr)] lg:gap-8 xl:grid-cols-[minmax(0,0.88fr)_minmax(300px,0.58fr)]"
+                  : "gap-6 md:gap-8 lg:grid-cols-[minmax(0,0.98fr)_minmax(320px,0.72fr)] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.74fr)]"
                 : "gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.85fr)]"
             }`}
           >
-            <div className={isPhotoTone ? "max-w-[680px] xl:max-w-[740px]" : "max-w-[760px]"}>
+            <div
+              className={
+                isPhotoTone
+                  ? isCompact
+                    ? "max-w-[560px] xl:max-w-[600px]"
+                    : "max-w-[680px] xl:max-w-[740px]"
+                  : "max-w-[760px]"
+              }
+            >
               <div
                 className={
                   isPhotoTone
-                    ? "rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-6 shadow-[0_28px_70px_-42px_rgba(0,18,52,0.75)] backdrop-blur-md md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
+                    ? isCompact
+                      ? "rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(7,23,55,0.24),rgba(7,23,55,0.1))] p-4 shadow-[0_22px_54px_-40px_rgba(0,18,52,0.62)] backdrop-blur-sm md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
+                      : "rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(7,23,55,0.3),rgba(7,23,55,0.12))] p-6 shadow-[0_28px_70px_-42px_rgba(0,18,52,0.68)] backdrop-blur-sm md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
                     : ""
                 }
               >
@@ -172,7 +204,7 @@ export function PageHero({
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                   className={`inline-flex items-center gap-2 rounded-full px-4 py-2 backdrop-blur-xl ${
                     isPhotoTone
-                      ? "border border-white/12 bg-white/[0.08] shadow-[0_16px_40px_-26px_rgba(30,191,255,0.45)]"
+                      ? "border border-white/12 bg-white/[0.06] shadow-[0_16px_40px_-30px_rgba(0,18,52,0.55)]"
                       : "border border-white/14 bg-white/10"
                   }`}
                 >
@@ -192,9 +224,11 @@ export function PageHero({
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.85, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  className={`mt-8 font-display tracking-[-0.045em] text-white ${
+                  className={`font-display tracking-[-0.045em] text-white ${
                     isPhotoTone
-                      ? "max-w-[680px] text-[clamp(40px,5.8vw,72px)] leading-[0.98] xl:max-w-[740px] xl:text-[clamp(44px,5.2vw,76px)]"
+                      ? isCompact
+                        ? "mt-5 max-w-[520px] text-[clamp(28px,3.6vw,46px)] leading-[1.02] xl:max-w-[560px] xl:text-[clamp(30px,3.4vw,50px)]"
+                        : "mt-8 max-w-[680px] text-[clamp(40px,5.8vw,72px)] leading-[0.98] xl:max-w-[740px] xl:text-[clamp(44px,5.2vw,76px)]"
                       : "max-w-[900px] text-[clamp(46px,7vw,84px)] leading-[0.95]"
                   }`}
                 >
@@ -207,15 +241,17 @@ export function PageHero({
                       initial={{ opacity: 0, scaleX: 0.8 }}
                       animate={{ opacity: 1, scaleX: 1 }}
                       transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                      className="mt-8 h-[2px] w-24 origin-left bg-gradient-to-r from-[var(--sky-bright)] to-transparent"
+                      className={`${isCompact ? "mt-5 w-20" : "mt-8 w-24"} h-[2px] origin-left bg-gradient-to-r from-[var(--sky-bright)] to-transparent`}
                     />
 
                     {meta?.length ? (
-                      <div className="mt-6 flex flex-wrap gap-2 md:hidden">
+                      <div
+                        className={`${isCompact ? "mt-4" : "mt-6"} flex flex-wrap gap-2 md:hidden`}
+                      >
                         {meta.map((item) => (
                           <span
                             key={`hero-mobile-${item}`}
-                            className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-1.5 text-[11px] font-medium tracking-[0.03em] text-white/76"
+                            className="rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[11px] font-medium tracking-[0.03em] text-white/72"
                           >
                             {item}
                           </span>
@@ -231,28 +267,46 @@ export function PageHero({
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className={isPhotoTone ? "lg:pt-[60px] xl:pt-[72px]" : "lg:pt-[88px]"}
+              className={
+                isPhotoTone
+                  ? isCompact
+                    ? "lg:pt-[18px] xl:pt-[22px]"
+                    : "lg:pt-[60px] xl:pt-[72px]"
+                  : "lg:pt-[88px]"
+              }
             >
               {isPhotoTone ? (
-                <div className="relative overflow-hidden rounded-[24px] border border-white/12 bg-white/[0.06] p-6 shadow-[0_28px_80px_-42px_rgba(0,18,52,0.55)] backdrop-blur-md md:p-7 lg:max-w-[420px] lg:ml-auto">
+                <div
+                  className={`relative overflow-hidden rounded-[24px] border border-white/12 bg-[linear-gradient(180deg,rgba(8,24,58,0.32),rgba(8,24,58,0.18))] shadow-[0_28px_80px_-42px_rgba(0,18,52,0.55)] backdrop-blur-sm lg:ml-auto ${
+                    isCompact ? "p-4 md:p-5 lg:max-w-[360px]" : "p-6 md:p-7 lg:max-w-[420px]"
+                  }`}
+                >
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top,rgba(30,191,255,0.16),transparent_72%)]"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top,rgba(157,192,216,0.12),transparent_72%)]"
                   />
                   <div className="relative">
-                    <div className="label-mono !text-[10px] !tracking-[0.16em] !text-[var(--sky)]">
+                    <div className="label-mono !text-[10px] !tracking-[0.16em] !text-[#b7cadc]">
                       {asideLabel ?? "Company brief"}
                     </div>
-                    <p className="mt-4 max-w-[520px] text-[18px] leading-[1.7] text-white/78 md:text-[19px] lg:text-[18px] xl:text-[19px]">
+                    <p
+                      className={`max-w-[520px] text-white/84 ${
+                        isCompact
+                          ? "mt-3 text-[15px] leading-[1.65] md:text-[16px] lg:text-[15px]"
+                          : "mt-4 text-[18px] leading-[1.72] md:text-[19px] lg:text-[18px] xl:text-[19px]"
+                      }`}
+                    >
                       {subtitle}
                     </p>
 
                     {meta?.length ? (
-                      <div className="mt-7 hidden flex-wrap gap-2.5 md:flex">
+                      <div
+                        className={`${isCompact ? "mt-5 gap-2" : "mt-7 gap-2.5"} hidden flex-wrap md:flex`}
+                      >
                         {meta.map((item) => (
                           <span
                             key={item}
-                            className="rounded-full border border-white/12 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-medium tracking-[0.03em] text-white/78"
+                            className="rounded-full border border-white/12 bg-white/[0.05] px-3.5 py-1.5 text-[11px] font-medium tracking-[0.03em] text-white/74"
                           >
                             {item}
                           </span>
@@ -260,7 +314,7 @@ export function PageHero({
                       </div>
                     ) : null}
 
-                    {children && <div className="mt-8">{children}</div>}
+                    {children && <div className={isCompact ? "mt-5" : "mt-8"}>{children}</div>}
                   </div>
                 </div>
               ) : (

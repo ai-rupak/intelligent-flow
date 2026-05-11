@@ -1,14 +1,8 @@
-import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Albert_Sans, JetBrains_Mono } from "next/font/google";
 
-export const inter = Inter({
+export const albertSans = Albert_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-export const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
+  variable: "--font-albert-sans",
   display: "swap",
 });
 

@@ -80,13 +80,13 @@ export default function ClientsPage() {
     <>
       <PageHero
         pill="02 · Company"
-        title="Trusted by enterprises building the future."
-        highlight="future."
-        subtitle="From regional health networks to global asset managers, our clients ship faster because we have already done the hard part."
+        title="Trusted by teams with real stakes."
+        subtitle="We work with healthcare, finance, logistics, and public-sector organizations that need dependable execution, not experimentation theater."
         variant="immersive"
         tone="company"
-        asideLabel="Client profile"
-        meta={["100+ engagements", "8 industries served", "Enterprise delivery"]}
+        size="compact"
+        asideLabel="Client relationships"
+        meta={["100+ engagements", "Enterprise workflows", "Outcome-driven delivery"]}
         backgroundImage="https://images.pexels.com/photos/7495196/pexels-photo-7495196.jpeg?cs=srgb&dl=pexels-moe-magners-7495196.jpg&fm=jpg"
       />
 

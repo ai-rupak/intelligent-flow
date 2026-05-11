@@ -130,12 +130,32 @@ export default function ContactPage() {
     <>
       <PageHero
         pill="06 · Contact"
-        title="Let's Build Something Exceptional."
-        highlight="Exceptional."
+        title="Talk to the team."
+        variant="immersive"
+        tone="photo"
+        size="compact"
+        asideLabel="Contact CentricaSoft"
+        meta={["Direct response", "24-hour turnaround"]}
+        backgroundImage="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?cs=srgb&dl=pexels-fauxels-3184338.jpg&fm=jpg"
         subtitle="Tell us about your project. We respond to every inbound within 24 hours — usually faster."
-      />
+      >
+        <div className="flex flex-wrap gap-3">
+          <a
+            href="#contact-form"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[var(--navy)] transition-transform duration-200 hover:-translate-y-0.5"
+          >
+            Start a conversation <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="inline-flex items-center gap-2 rounded-full border border-white/16 bg-white/[0.04] px-5 py-2.5 text-sm font-medium text-white/82 transition-colors duration-200 hover:bg-white/[0.08] hover:text-white"
+          >
+            Email us directly
+          </a>
+        </div>
+      </PageHero>
 
-      <section className="pb-32">
+      <section className="pt-14 pb-32 md:pt-20">
         <div className="container-x">
           <div className="grid lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-20">
             {/* LEFT — meta */}
@@ -165,7 +185,7 @@ export default function ContactPage() {
                         Phone
                       </div>
                       <div className="mt-1 text-[16px] font-medium text-[var(--ink)]">
-                        +1 (512) 555-0142
+                        +1 (818) 612 3102
                       </div>
                     </div>
                   </div>
@@ -207,7 +227,7 @@ export default function ContactPage() {
             </div>
 
             {/* RIGHT — form */}
-            <div>
+            <div id="contact-form" className="scroll-mt-32">
               <div className="rounded-3xl border border-[var(--border)] bg-white p-8 md:p-10 relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   {done ? (

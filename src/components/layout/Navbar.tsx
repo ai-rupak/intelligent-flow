@@ -8,16 +8,20 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "../ui/Logo";
 import { MagneticButton } from "../ui/MagneticButton";
 import { MegaNav } from "./MegaNav";
-import { NAV_ITEMS, SERVICES } from "@/lib/constants";
+import { NAV_ITEMS } from "@/lib/constants";
 
 type Panel = "what-we-do" | "products" | "company";
 type MobilePanel = Panel | null;
 
 const MOBILE_SUBNAV: Record<Panel, { label: string; href: string }[]> = {
-  "what-we-do": SERVICES.map((service) => ({
-    label: service.title,
-    href: `/what-we-do/${service.slug}`,
-  })),
+  "what-we-do": [
+    { label: "Agentic AI & Autonomous Agents", href: "/what-we-do/agentic-ai" },
+    { label: "Generative AI Chatbots", href: "/what-we-do/genai-chatbots" },
+    { label: "Data Engineering & Pipelines", href: "/what-we-do/data-engineering" },
+    { label: "Data Analytics & Insights", href: "/what-we-do/data-analytics" },
+    { label: "Machine Learning & Advanced Analytics", href: "/what-we-do/data-analytics" },
+    { label: "App Development", href: "/contact" },
+  ],
   products: [{ label: "Nubo", href: "/products/nubo" }],
   company: [
     { label: "About Us", href: "/company/about" },
@@ -25,6 +29,22 @@ const MOBILE_SUBNAV: Record<Panel, { label: string; href: string }[]> = {
     { label: "Partners", href: "/company/partners" },
   ],
 };
+
+const MOBILE_WHAT_WE_DO_INDUSTRIES = [
+  "Healthcare",
+  "Finance",
+  "Logistics",
+  "Retail",
+  "Enterprise",
+  "Energy",
+  "Media & Studios",
+  "Financial Services",
+  "Insurance",
+  "Restaurants",
+  "Fitness",
+  "SaaS",
+  "Real Estate",
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -90,6 +110,9 @@ export function Navbar() {
       pathname === "/products/nubo" ||
       pathname.startsWith("/what-we-do/") ||
       pathname.startsWith("/company/") ||
+      pathname === "/contact" ||
+      pathname.startsWith("/privacy-policy") ||
+      pathname.startsWith("/terms-of-use") ||
       pathname === "/insights" ||
       pathname === "/careers") &&
     !scrolled &&
@@ -241,6 +264,12 @@ export function Navbar() {
                           panel={item.mega}
                           open={mobilePanel === item.mega}
                           links={MOBILE_SUBNAV[item.mega]}
+                          footerTitle={
+                            item.mega === "what-we-do" ? "Industries We Serve" : undefined
+                          }
+                          footerItems={
+                            item.mega === "what-we-do" ? MOBILE_WHAT_WE_DO_INDUSTRIES : undefined
+                          }
                           onToggle={() =>
                             setMobilePanel((current) => (current === item.mega ? null : item.mega))
                           }
@@ -297,6 +326,8 @@ function MobileNavGroup({
   panel,
   open,
   links,
+  footerTitle,
+  footerItems,
   onToggle,
 }: {
   index: number;
@@ -304,6 +335,8 @@ function MobileNavGroup({
   panel: Panel;
   open: boolean;
   links: { label: string; href: string }[];
+  footerTitle?: string;
+  footerItems?: string[];
   onToggle: () => void;
 }) {
   return (
@@ -337,17 +370,36 @@ function MobileNavGroup({
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="mb-2 ml-[42px] border-l border-[#1EBFFF]/35 bg-white/[0.035] px-4 py-3">
+            <div className="mb-2 ml-[42px] rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="group/sub flex items-center justify-between py-2.5 text-[15px] font-medium leading-snug text-white/70"
+                  className="group/sub flex items-center justify-between border-b border-white/7 py-3 text-[15px] font-medium leading-snug text-white/74 last:border-b-0"
                 >
                   <span>{link.label}</span>
                   <span className="h-px w-4 bg-[#7DE7FF]/40 transition-all group-hover/sub:w-7 group-hover/sub:bg-[#7DE7FF]" />
                 </Link>
               ))}
+              {footerItems?.length ? (
+                <div className="mt-5 border-t border-white/10 pt-4">
+                  {footerTitle ? (
+                    <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7DE7FF]/72">
+                      {footerTitle}
+                    </div>
+                  ) : null}
+                  <div className="flex flex-wrap gap-2">
+                    {footerItems.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-white/12 bg-white/[0.04] px-3 py-1.5 text-[11px] leading-none text-white/70"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
           </motion.div>
         )}

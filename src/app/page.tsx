@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
 import { MarqueeStrip } from "@/components/sections/MarqueeStrip";
 import { WhoWeAre } from "@/components/sections/WhoWeAre";
@@ -7,6 +8,14 @@ import { CaseStudies } from "@/components/sections/CaseStudies";
 import { Stats } from "@/components/sections/Stats";
 import { Clients } from "@/components/sections/Clients";
 import { CTAStrip } from "@/components/sections/CTAStrip";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "CentricaSoft - Intelligence, Engineered.",
+  description:
+    "CentricaSoft builds AI Agents, GenAI platforms, and enterprise data infrastructure that scale without limits.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (

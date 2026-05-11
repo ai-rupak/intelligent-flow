@@ -3,7 +3,7 @@ export const SITE = {
   tagline: "Intelligence, Engineered.",
   description:
     "CentricaSoft builds AI Agents, GenAI platforms, and enterprise data infrastructure that scale without limits.",
-  email: "info@centricasoft.com",
+  email: "contact@centricasoft.com",
   careersEmail: "careers@centricasoft.com",
 };
 
@@ -58,7 +58,7 @@ export const STATS = [
 
 export const OFFICE_LOCATIONS = [
   {
-    city: "San Francisco",
+    city: "Los Angeles",
     region: "California",
     country: "United States",
     note: "Client and architecture hub",

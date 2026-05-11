@@ -3,10 +3,28 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { SERVICES } from "@/lib/constants";
+import { SERVICES as BASE_SERVICES } from "@/lib/constants";
+
+const HOME_SERVICES = [
+  ...BASE_SERVICES,
+  {
+    slug: "ml-advanced-analytics",
+    href: "/what-we-do/data-analytics",
+    title: "Machine Learning & Advanced Analytics",
+    body: "Forecasting, prediction, optimization, and decision intelligence for teams that need sharper planning and faster action.",
+    tags: ["ML Models", "Forecasting", "Optimization"],
+  },
+  {
+    slug: "app-development",
+    href: "/contact",
+    title: "App Development",
+    body: "Web and mobile product development connected to modern data, AI, and enterprise platforms from day one.",
+    tags: ["Web Apps", "Mobile", "Platform UX"],
+  },
+] as const;
 
 const SERVICE_VISUALS: Record<string, { image: string; eyebrow: string }> = {
   "agentic-ai": {
@@ -28,6 +46,16 @@ const SERVICE_VISUALS: Record<string, { image: string; eyebrow: string }> = {
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
     eyebrow: "Decision Intelligence",
+  },
+  "ml-advanced-analytics": {
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80",
+    eyebrow: "Predictive Systems",
+  },
+  "app-development": {
+    image:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1400&q=80",
+    eyebrow: "Product Engineering",
   },
 };
 
@@ -52,16 +80,90 @@ const SERVICE_ACCENTS: Record<string, { title: string; counter: string; progress
     counter: "#FFC98E",
     progress: "#FF9F43",
   },
+  "ml-advanced-analytics": {
+    title: "#8BE7C4",
+    counter: "#A7F1D5",
+    progress: "#52D9A5",
+  },
+  "app-development": {
+    title: "#7DC2FF",
+    counter: "#A9D7FF",
+    progress: "#4AA3FF",
+  },
 };
 
 export function Services() {
   const [active, setActive] = useState(0);
-  const service = SERVICES[active];
+  const mobileScrollerRef = useRef<HTMLDivElement>(null);
+  const mobileScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const service = HOME_SERVICES[active];
   const visual = SERVICE_VISUALS[service.slug];
   const accent = SERVICE_ACCENTS[service.slug];
 
   const move = (direction: 1 | -1) => {
-    setActive((current) => (current + direction + SERVICES.length) % SERVICES.length);
+    setActive((current) => (current + direction + HOME_SERVICES.length) % HOME_SERVICES.length);
+  };
+
+  const setActiveIndex = (index: number) => {
+    setActive(index);
+    scrollMobileToCard(index);
+  };
+
+  const moveMobile = (direction: 1 | -1) => {
+    const nextIndex = (active + direction + HOME_SERVICES.length) % HOME_SERVICES.length;
+    setActiveIndex(nextIndex);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (mobileScrollTimeoutRef.current) {
+        clearTimeout(mobileScrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const scrollMobileToCard = (index: number) => {
+    const scroller = mobileScrollerRef.current;
+    const card = scroller?.children[index] as HTMLElement | undefined;
+
+    if (!scroller || !card) return;
+
+    scroller.scrollTo({
+      left: card.offsetLeft - scroller.offsetLeft,
+      behavior: "smooth",
+    });
+  };
+
+  const syncActiveFromScroll = () => {
+    const scroller = mobileScrollerRef.current;
+    if (!scroller) return;
+
+    const cards = Array.from(scroller.children) as HTMLElement[];
+    if (!cards.length) return;
+
+    const scrollerCenter = scroller.scrollLeft + scroller.clientWidth / 2;
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    cards.forEach((card, index) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const distance = Math.abs(cardCenter - scrollerCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActive((current) => (current === closestIndex ? current : closestIndex));
+  };
+
+  const handleMobileScroll = () => {
+    if (mobileScrollTimeoutRef.current) {
+      clearTimeout(mobileScrollTimeoutRef.current);
+    }
+
+    mobileScrollTimeoutRef.current = setTimeout(syncActiveFromScroll, 80);
   };
 
   return (
@@ -87,12 +189,126 @@ export function Services() {
       <div className="container-x relative">
         <ScrollReveal y={24} blur={8}>
           <SectionLabel number="02">Services</SectionLabel>
-          <h2 className="mt-4 max-w-[760px] font-heading text-[clamp(30px,4.2vw,48px)] font-bold leading-[1.12] text-white">
+          <h2 className="mt-4 max-w-[760px] font-heading text-[clamp(20px,8vw,28px)] font-bold leading-[1.14] text-white sm:text-[clamp(30px,4.2vw,48px)] sm:leading-[1.12]">
             AI, GenAI, and data engineering services for teams building at scale.
           </h2>
         </ScrollReveal>
 
-        <div className="mt-9 grid items-center gap-8 md:mt-10 lg:grid-cols-[0.9fr_0.78fr] lg:gap-12">
+        <div className="mt-8 md:hidden">
+          <div
+            ref={mobileScrollerRef}
+            onScroll={handleMobileScroll}
+            className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {HOME_SERVICES.map((item, index) => {
+              const itemVisual = SERVICE_VISUALS[item.slug];
+              const itemAccent = SERVICE_ACCENTS[item.slug];
+
+              return (
+                <article
+                  key={item.slug}
+                  className="w-[min(80vw,340px)] shrink-0 snap-center border border-white/10 bg-white/[0.03]"
+                >
+                  <div className="relative overflow-hidden border-b border-white/10">
+                    <div
+                      className="relative aspect-[1.28] bg-cover bg-center"
+                      style={{ backgroundImage: `url(${itemVisual.image})` }}
+                    >
+                      <div className="absolute inset-0 bg-[#001234]/24" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#001234]/58 via-[#002057]/18 to-[#1EBFFF]/10" />
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 opacity-12"
+                        style={{
+                          background:
+                            "linear-gradient(120deg, transparent 0 44%, rgba(125,231,255,0.18) 45%, transparent 54%)",
+                        }}
+                      />
+                      <div className="absolute bottom-4 left-4 border border-white/15 bg-[#001234]/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70 backdrop-blur-md">
+                        {itemVisual.eyebrow}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4">
+                    <div className="font-mono text-[13px]" style={{ color: itemAccent.counter }}>
+                      {String(index + 1).padStart(2, "0")} /{" "}
+                      {String(HOME_SERVICES.length).padStart(2, "0")}
+                    </div>
+                    <h3
+                      className="mt-3 font-heading text-[24px] font-bold leading-[1.08]"
+                      style={{ color: itemAccent.title }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 text-[15px] leading-[1.7] text-white/72">{item.body}</p>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-white/65"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      href={item.href ?? `/what-we-do/${item.slug}`}
+                      className="group mt-6 inline-flex items-center gap-2 text-[14px] font-medium text-[#7DE7FF]"
+                    >
+                      Explore practice
+                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-6 flex flex-col items-center gap-4">
+            <div className="flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => moveMobile(-1)}
+                aria-label="Previous service"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/[0.04] text-white/75 transition-all hover:border-[#7DE7FF]/60 hover:bg-white/[0.08] hover:text-white"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => moveMobile(1)}
+                aria-label="Next service"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-white/[0.04] text-white/75 transition-all hover:border-[#7DE7FF]/60 hover:bg-white/[0.08] hover:text-white"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-2.5">
+              {HOME_SERVICES.map((item, index) => (
+                <button
+                  key={`mobile-${item.slug}`}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`Show ${item.title}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    active === index ? "w-12" : "w-8 bg-white/20 hover:bg-white/35"
+                  }`}
+                  style={
+                    active === index
+                      ? { backgroundColor: SERVICE_ACCENTS[item.slug].progress }
+                      : undefined
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-9 hidden items-center gap-8 md:mt-10 md:grid lg:grid-cols-[0.9fr_0.78fr] lg:gap-12">
           <ScrollReveal x={-32} className="relative">
             <div className="absolute -left-4 -top-4 h-16 w-16 border-l border-t border-[#1EBFFF]/30 sm:h-20 sm:w-20" />
             <div className="absolute -bottom-4 -right-4 h-16 w-16 border-b border-r border-[#40D7C7]/25 sm:h-20 sm:w-20" />
@@ -135,7 +351,8 @@ export function Services() {
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="font-mono text-[13px]" style={{ color: accent.counter }}>
-                  {String(active + 1).padStart(2, "0")} / {String(SERVICES.length).padStart(2, "0")}
+                  {String(active + 1).padStart(2, "0")} /{" "}
+                  {String(HOME_SERVICES.length).padStart(2, "0")}
                 </div>
                 <h3
                   className="mt-3 max-w-[500px] font-heading text-[clamp(24px,3.4vw,34px)] font-bold leading-[1.1]"
@@ -159,7 +376,7 @@ export function Services() {
                 </div>
 
                 <Link
-                  href={`/what-we-do/${service.slug}`}
+                  href={service.href ?? `/what-we-do/${service.slug}`}
                   className="group mt-6 inline-flex items-center gap-2 text-[14px] font-medium text-[#7DE7FF]"
                 >
                   Explore practice
@@ -188,7 +405,7 @@ export function Services() {
             </div>
 
             <div className="mt-7 flex gap-2.5">
-              {SERVICES.map((item, index) => (
+              {HOME_SERVICES.map((item, index) => (
                 <button
                   key={item.slug}
                   type="button"

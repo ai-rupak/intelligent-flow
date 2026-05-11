@@ -98,19 +98,19 @@ export default function InsightsPage() {
   return (
     <>
       <PageHero
-        pill="04 · Insights"
-        title="Intelligence. Curated."
-        highlight="Curated."
+        pill="04 · Latest Articles"
+        title="Insights"
         variant="immersive"
         tone="photo"
-        asideLabel="Editorial brief"
-        meta={["Field notes", "Design patterns", "Case studies"]}
+        size="compact"
+        asideLabel="Insights from the field"
+        meta={["Agentic AI", "Data systems", "Case studies"]}
         backgroundImage="https://images.pexels.com/photos/6285258/pexels-photo-6285258.jpeg?cs=srgb&dl=pexels-gustavo-fring-6285258.jpg&fm=jpg"
-        subtitle="Field notes, design patterns, and case studies from the engineers shipping production AI and data systems — not the people writing about them."
+        subtitle="The latest news, updates and stories brought to you by Centricasoft. Insights from our engineers, data scientists, and product builders on everything from agentic AI to data infrastructure to enterprise case studies."
       />
 
       {/* Featured */}
-      <section className="pb-20">
+      <section className="pt-14 pb-20 md:pt-20">
         <div className="container-x">
           <motion.article
             initial={{ opacity: 0, y: 30 }}

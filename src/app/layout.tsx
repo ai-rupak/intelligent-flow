@@ -5,16 +5,20 @@ import { GrainOverlay } from "@/components/ui/GrainOverlay";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageLoader } from "@/components/ui/PageLoader";
-import { inter, jetBrainsMono, plusJakartaSans } from "@/lib/fonts";
+import { ReactBot } from "@/components/reactbot/ReactBot";
+import { CookieConsentPopup } from "@/components/ui/CookieConsentPopup";
+import { albertSans, jetBrainsMono } from "@/lib/fonts";
+import { siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "CentricaSoft - Intelligence, Engineered.",
   description:
     "CentricaSoft builds AI Agents, GenAI platforms, and enterprise data infrastructure that scale without limits.",
   authors: [{ name: "CentricaSoft LLC" }],
   icons: {
-    icon: "/assest/logo.webp",
-    shortcut: "/assest/logo.webp",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
     apple: "/assest/logo.webp",
   },
   openGraph: { type: "website" },
@@ -23,16 +27,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${plusJakartaSans.variable} ${jetBrainsMono.variable}`}
-    >
+    <html lang="en" className={`${albertSans.variable} ${jetBrainsMono.variable}`}>
       <head>
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700,800&display=swap"
-        />
         <link rel="preload" href="/videos/hero-bg.mp4" as="video" type="video/mp4" />
       </head>
       <body>
@@ -42,6 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <main className="min-h-screen">{children}</main>
           <Footer />
+          <ReactBot />
+          <CookieConsentPopup />
         </SmoothScrollProvider>
       </body>
     </html>
